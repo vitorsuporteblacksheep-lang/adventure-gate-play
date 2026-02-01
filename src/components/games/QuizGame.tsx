@@ -12,17 +12,17 @@ const quizQuestions: Record<string, { question: string; options: string[]; corre
   'chapter-1': [
     {
       question: 'O que você sentiu no primeiro momento que me viu?',
-      options: ['Borboletas no estômago', 'Indiferença', 'Curiosidade', 'Todas as anteriores'],
+      options: ['Borboletas no estômago', 'Indiferença', 'Curiosidade', 'Um amor instantâneo'],
       correct: 0,
     },
     {
       question: 'Qual é a cor dos meus olhos?',
-      options: ['Azuis', 'Castanhos', 'Verdes', 'Pretos'],
+      options: ['Azuis como o céu', 'Castanhos como mel', 'Verdes como esmeralda', 'Pretos como a noite'],
       correct: 1,
     },
     {
       question: 'O amor verdadeiro é...',
-      options: ['Passageiro', 'Eterno', 'Difícil', 'Impossível'],
+      options: ['Passageiro', 'Eterno ❤️', 'Difícil', 'Impossível'],
       correct: 1,
     },
   ],
@@ -70,20 +70,22 @@ const QuizGame = ({ chapter, onComplete }: QuizGameProps) => {
         <motion.div
           animate={{ scale: [1, 1.2, 1] }}
           transition={{ duration: 0.5 }}
+          className="relative inline-block"
         >
-          <Heart className="w-16 h-16 text-rose mx-auto mb-4" fill="currentColor" />
+          <div className="absolute inset-0 blur-2xl bg-wine/30 rounded-full" />
+          <Heart className="w-20 h-20 text-wine mx-auto mb-4 relative" fill="currentColor" />
         </motion.div>
-        <h3 className="font-display text-2xl text-foreground mb-2">
+        <h3 className="font-display text-3xl text-foreground mb-2">
           Capítulo Desbloqueado!
         </h3>
-        <p className="text-muted-foreground">
+        <p className="text-muted-foreground font-body">
           Você acertou {score} de {questions.length} perguntas
         </p>
-        <div className="flex justify-center gap-1 mt-4">
+        <div className="flex justify-center gap-2 mt-4">
           {Array.from({ length: questions.length }).map((_, i) => (
             <Sparkles
               key={i}
-              className={`w-5 h-5 ${i < score ? 'text-gold' : 'text-muted'}`}
+              className={`w-6 h-6 ${i < score ? 'text-gold' : 'text-muted'}`}
             />
           ))}
         </div>
@@ -96,18 +98,18 @@ const QuizGame = ({ chapter, onComplete }: QuizGameProps) => {
   return (
     <div className="space-y-6">
       <div className="text-center">
-        <span className="text-sm text-muted-foreground">
+        <span className="text-sm text-muted-foreground font-body">
           Pergunta {currentQuestion + 1} de {questions.length}
         </span>
-        <div className="flex justify-center gap-1 mt-2">
+        <div className="flex justify-center gap-2 mt-3">
           {questions.map((_, i) => (
             <div
               key={i}
-              className={`w-2 h-2 rounded-full ${
+              className={`w-3 h-3 rounded-full transition-all ${
                 i < currentQuestion
-                  ? 'bg-rose'
+                  ? 'bg-wine'
                   : i === currentQuestion
-                  ? 'bg-gold'
+                  ? 'bg-gold w-6'
                   : 'bg-muted'
               }`}
             />
@@ -133,16 +135,16 @@ const QuizGame = ({ chapter, onComplete }: QuizGameProps) => {
             transition={{ delay: index * 0.1 }}
             onClick={() => handleAnswer(index)}
             disabled={selectedAnswer !== null}
-            className={`w-full p-4 rounded-xl text-left transition-all duration-300 flex items-center justify-between ${
+            className={`w-full p-4 rounded-xl text-left transition-all duration-300 flex items-center justify-between font-body ${
               selectedAnswer === null
-                ? 'bg-muted hover:bg-muted/80 hover:shadow-soft'
+                ? 'bg-card hover:bg-wine/5 hover:border-wine/30 border border-wine/10 shadow-soft'
                 : selectedAnswer === index
                 ? index === question.correct
-                  ? 'bg-rose text-primary-foreground'
-                  : 'bg-destructive text-destructive-foreground'
+                  ? 'bg-wine text-primary-foreground border border-wine'
+                  : 'bg-destructive/80 text-destructive-foreground border border-destructive'
                 : index === question.correct && showResult
-                ? 'bg-rose/20 border-2 border-rose'
-                : 'bg-muted opacity-50'
+                ? 'bg-wine/20 border-2 border-wine'
+                : 'bg-muted opacity-50 border border-transparent'
             }`}
           >
             <span className="font-medium">{option}</span>

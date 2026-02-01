@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Heart, Camera, Sparkles } from 'lucide-react';
+import { Heart, Camera, Sparkles, ImageIcon } from 'lucide-react';
 
 interface GalleryProps {
   interactions: number;
@@ -7,27 +7,31 @@ interface GalleryProps {
 }
 
 const memories = [
-  { id: 1, emoji: '📸', title: 'Nosso primeiro selfie juntos', date: 'Janeiro 2023' },
-  { id: 2, emoji: '🌅', title: 'Pôr do sol na praia', date: 'Março 2023' },
-  { id: 3, emoji: '🎂', title: 'Seu aniversário especial', date: 'Maio 2023' },
-  { id: 4, emoji: '🎄', title: 'Nosso primeiro Natal', date: 'Dezembro 2023' },
-  { id: 5, emoji: '✈️', title: 'Nossa viagem dos sonhos', date: 'Junho 2023' },
-  { id: 6, emoji: '🌹', title: 'Dia dos Namorados', date: 'Junho 2023' },
+  { id: 1, emoji: '📸', title: 'Nosso primeiro selfie juntos', date: 'Janeiro 2023', mood: 'Felicidade' },
+  { id: 2, emoji: '🌅', title: 'Pôr do sol na praia', date: 'Março 2023', mood: 'Paz' },
+  { id: 3, emoji: '🎂', title: 'Seu aniversário especial', date: 'Maio 2023', mood: 'Celebração' },
+  { id: 4, emoji: '🎄', title: 'Nosso primeiro Natal', date: 'Dezembro 2023', mood: 'Magia' },
+  { id: 5, emoji: '✈️', title: 'Nossa viagem dos sonhos', date: 'Junho 2023', mood: 'Aventura' },
+  { id: 6, emoji: '🌹', title: 'Dia dos Namorados', date: 'Junho 2023', mood: 'Romance' },
 ];
 
 const Gallery = ({ interactions, onInteraction }: GalleryProps) => {
   return (
-    <div className="min-h-screen pb-24 pt-8 px-4 bg-gradient-soft">
+    <div className="min-h-screen pb-28 pt-6 px-4 bg-gradient-elegant">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         className="text-center mb-8"
       >
-        <Camera className="w-10 h-10 text-rose mx-auto mb-2" />
-        <h1 className="font-display text-3xl md:text-4xl text-foreground mb-2">
+        <div className="flex items-center justify-center gap-3 mb-3">
+          <div className="h-px w-12 bg-gradient-to-r from-transparent to-wine" />
+          <Camera className="w-6 h-6 text-wine" />
+          <div className="h-px w-12 bg-gradient-to-l from-transparent to-wine" />
+        </div>
+        <h1 className="font-display text-4xl md:text-5xl text-foreground mb-2">
           Nossa Galeria
         </h1>
-        <p className="text-muted-foreground">
+        <p className="text-muted-foreground font-body">
           Momentos eternizados no coração
         </p>
       </motion.div>
@@ -39,16 +43,24 @@ const Gallery = ({ interactions, onInteraction }: GalleryProps) => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: index * 0.1 }}
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.03, y: -4 }}
             onClick={onInteraction}
-            className="bg-card rounded-xl p-4 shadow-soft cursor-pointer hover:shadow-romantic transition-shadow"
+            className="bg-gradient-card rounded-2xl p-5 shadow-elegant cursor-pointer border border-wine/10 hover:border-wine/30 transition-all group"
           >
-            <div className="text-4xl mb-3">{memory.emoji}</div>
-            <h3 className="font-display text-sm text-foreground mb-1">
+            <div className="flex items-start justify-between mb-3">
+              <div className="text-4xl">{memory.emoji}</div>
+              <div className="w-8 h-8 rounded-full bg-wine/10 flex items-center justify-center group-hover:bg-wine/20 transition-colors">
+                <ImageIcon className="w-4 h-4 text-wine" />
+              </div>
+            </div>
+            <h3 className="font-display text-base text-foreground mb-1 leading-tight">
               {memory.title}
             </h3>
-            <p className="text-xs text-muted-foreground">{memory.date}</p>
-            <Heart className="w-4 h-4 text-rose mt-2" fill="currentColor" />
+            <p className="text-xs text-muted-foreground font-body mb-2">{memory.date}</p>
+            <div className="flex items-center gap-2">
+              <Heart className="w-3.5 h-3.5 text-wine" fill="currentColor" />
+              <span className="text-xs text-wine font-body font-medium">{memory.mood}</span>
+            </div>
           </motion.div>
         ))}
       </div>
@@ -59,9 +71,9 @@ const Gallery = ({ interactions, onInteraction }: GalleryProps) => {
         transition={{ delay: 0.5 }}
         className="mt-8 text-center"
       >
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-card rounded-full shadow-soft">
+        <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-card rounded-full shadow-elegant border border-wine/10">
           <Sparkles className="w-4 h-4 text-gold" />
-          <span className="text-sm text-muted-foreground">
+          <span className="text-sm text-foreground font-body font-medium">
             {interactions} momentos de amor
           </span>
         </div>

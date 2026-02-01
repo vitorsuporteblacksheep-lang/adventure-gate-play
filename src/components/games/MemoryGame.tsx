@@ -96,13 +96,15 @@ const MemoryGame = ({ chapter, onComplete }: MemoryGameProps) => {
         <motion.div
           animate={{ scale: [1, 1.2, 1] }}
           transition={{ duration: 0.5 }}
+          className="relative inline-block"
         >
-          <Heart className="w-16 h-16 text-rose mx-auto mb-4" fill="currentColor" />
+          <div className="absolute inset-0 blur-2xl bg-wine/30 rounded-full" />
+          <Heart className="w-20 h-20 text-wine mx-auto mb-4 relative" fill="currentColor" />
         </motion.div>
-        <h3 className="font-display text-2xl text-foreground mb-2">
+        <h3 className="font-display text-3xl text-foreground mb-2">
           Memórias Conectadas!
         </h3>
-        <p className="text-muted-foreground">
+        <p className="text-muted-foreground font-body">
           Você completou em {moves} movimentos
         </p>
         <Sparkles className="w-8 h-8 text-gold mx-auto mt-4" />
@@ -111,27 +113,27 @@ const MemoryGame = ({ chapter, onComplete }: MemoryGameProps) => {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-5">
       <div className="text-center">
-        <h3 className="font-display text-lg text-foreground mb-1">
+        <h3 className="font-display text-xl text-foreground mb-1">
           Jogo da Memória
         </h3>
-        <p className="text-sm text-muted-foreground">
-          Encontre os pares de corações! Movimentos: {moves}
+        <p className="text-sm text-muted-foreground font-body">
+          Encontre os pares de corações! • Movimentos: {moves}
         </p>
       </div>
 
-      <div className="grid grid-cols-4 gap-2 max-w-xs mx-auto">
+      <div className="grid grid-cols-4 gap-2.5 max-w-xs mx-auto">
         {cards.map((card) => (
           <motion.button
             key={card.id}
             onClick={() => handleCardClick(card.id)}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className={`aspect-square rounded-lg text-2xl flex items-center justify-center transition-all duration-300 ${
+            className={`aspect-square rounded-xl text-2xl flex items-center justify-center transition-all duration-300 shadow-soft ${
               card.isFlipped || card.isMatched
-                ? 'bg-gradient-romantic'
-                : 'bg-muted hover:bg-muted/80'
+                ? 'bg-gradient-wine'
+                : 'bg-card border border-wine/20 hover:border-wine/40'
             }`}
           >
             <motion.span
@@ -145,7 +147,7 @@ const MemoryGame = ({ chapter, onComplete }: MemoryGameProps) => {
               {card.isFlipped || card.isMatched ? card.symbol : ''}
             </motion.span>
             {!card.isFlipped && !card.isMatched && (
-              <Heart className="w-5 h-5 text-muted-foreground" />
+              <Heart className="w-5 h-5 text-wine/40" />
             )}
           </motion.button>
         ))}

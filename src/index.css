@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Nunito:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Quicksand:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,56 +6,64 @@
 
 @layer base {
   :root {
-    --background: 350 30% 98%;
-    --foreground: 350 20% 15%;
+    --background: 345 25% 97%;
+    --foreground: 345 40% 12%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 350 20% 15%;
+    --card: 345 20% 99%;
+    --card-foreground: 345 40% 12%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 350 20% 15%;
+    --popover: 345 20% 99%;
+    --popover-foreground: 345 40% 12%;
 
-    --primary: 350 60% 55%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 345 45% 25%;
+    --primary-foreground: 345 20% 98%;
 
-    --secondary: 35 70% 90%;
-    --secondary-foreground: 35 50% 25%;
+    --secondary: 345 30% 92%;
+    --secondary-foreground: 345 45% 20%;
 
-    --muted: 350 20% 94%;
-    --muted-foreground: 350 15% 45%;
+    --muted: 345 20% 94%;
+    --muted-foreground: 345 20% 45%;
 
-    --accent: 35 80% 65%;
-    --accent-foreground: 35 50% 15%;
+    --accent: 30 50% 65%;
+    --accent-foreground: 30 50% 15%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 350 25% 88%;
-    --input: 350 25% 88%;
-    --ring: 350 60% 55%;
+    --border: 345 25% 88%;
+    --input: 345 25% 88%;
+    --ring: 345 45% 25%;
 
-    --radius: 0.75rem;
+    --radius: 1rem;
 
-    /* Custom romantic colors */
-    --rose: 350 60% 55%;
-    --rose-light: 350 60% 75%;
-    --rose-dark: 350 60% 40%;
-    --gold: 35 80% 55%;
-    --gold-light: 35 80% 75%;
-    --cream: 35 40% 95%;
-    --blush: 350 40% 92%;
-    --wine: 350 50% 30%;
+    /* Wine color palette */
+    --wine: 345 45% 25%;
+    --wine-dark: 345 50% 15%;
+    --wine-light: 345 40% 35%;
+    --wine-soft: 345 30% 45%;
+    --burgundy: 345 55% 20%;
+    --champagne: 40 45% 90%;
+    --gold: 38 65% 55%;
+    --gold-light: 40 60% 75%;
+    --rose-gold: 10 40% 75%;
+    --cream: 40 40% 97%;
+    --ivory: 45 35% 95%;
 
     /* Gradients */
-    --gradient-romantic: linear-gradient(135deg, hsl(350 60% 55%) 0%, hsl(35 80% 65%) 100%);
-    --gradient-sunset: linear-gradient(180deg, hsl(35 80% 75%) 0%, hsl(350 60% 65%) 50%, hsl(350 50% 45%) 100%);
-    --gradient-soft: linear-gradient(135deg, hsl(350 40% 92%) 0%, hsl(35 40% 95%) 100%);
-    --gradient-glow: radial-gradient(circle, hsl(350 60% 65% / 0.3) 0%, transparent 70%);
+    --gradient-wine: linear-gradient(135deg, hsl(345 45% 25%) 0%, hsl(345 55% 20%) 100%);
+    --gradient-elegant: linear-gradient(180deg, hsl(345 25% 97%) 0%, hsl(345 30% 92%) 100%);
+    --gradient-romantic: linear-gradient(135deg, hsl(345 45% 30%) 0%, hsl(345 50% 18%) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(38 65% 55%) 0%, hsl(30 50% 65%) 100%);
+    --gradient-soft: linear-gradient(180deg, hsl(40 40% 97%) 0%, hsl(345 30% 95%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(345 20% 99%) 0%, hsl(345 25% 96%) 100%);
+    --gradient-dark-wine: linear-gradient(180deg, hsl(345 50% 12%) 0%, hsl(345 55% 8%) 100%);
 
     /* Shadows */
-    --shadow-romantic: 0 4px 20px -4px hsl(350 60% 55% / 0.25);
-    --shadow-soft: 0 2px 10px -2px hsl(350 20% 15% / 0.1);
-    --shadow-glow: 0 0 30px hsl(350 60% 55% / 0.3);
+    --shadow-wine: 0 8px 32px -8px hsl(345 45% 25% / 0.25);
+    --shadow-elegant: 0 4px 20px -4px hsl(345 40% 20% / 0.15);
+    --shadow-soft: 0 2px 12px -2px hsl(345 30% 20% / 0.1);
+    --shadow-glow: 0 0 40px hsl(345 45% 25% / 0.2);
+    --shadow-card: 0 10px 40px -10px hsl(345 45% 20% / 0.2);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -68,42 +76,45 @@
   }
 
   .dark {
-    --background: 350 20% 8%;
-    --foreground: 350 20% 95%;
+    --background: 345 50% 6%;
+    --foreground: 345 20% 95%;
 
-    --card: 350 20% 12%;
-    --card-foreground: 350 20% 95%;
+    --card: 345 45% 10%;
+    --card-foreground: 345 20% 95%;
 
-    --popover: 350 20% 12%;
-    --popover-foreground: 350 20% 95%;
+    --popover: 345 45% 10%;
+    --popover-foreground: 345 20% 95%;
 
-    --primary: 350 60% 60%;
-    --primary-foreground: 350 20% 8%;
+    --primary: 345 40% 55%;
+    --primary-foreground: 345 50% 6%;
 
-    --secondary: 35 50% 20%;
-    --secondary-foreground: 35 50% 90%;
+    --secondary: 345 35% 15%;
+    --secondary-foreground: 345 30% 90%;
 
-    --muted: 350 15% 18%;
-    --muted-foreground: 350 15% 65%;
+    --muted: 345 30% 15%;
+    --muted-foreground: 345 20% 65%;
 
-    --accent: 35 70% 50%;
-    --accent-foreground: 35 50% 95%;
+    --accent: 38 55% 50%;
+    --accent-foreground: 38 50% 95%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 350 15% 20%;
-    --input: 350 15% 20%;
-    --ring: 350 60% 60%;
+    --border: 345 30% 18%;
+    --input: 345 30% 18%;
+    --ring: 345 40% 55%;
 
-    --rose: 350 60% 60%;
-    --rose-light: 350 50% 70%;
-    --rose-dark: 350 60% 45%;
-    --gold: 35 70% 50%;
-    --gold-light: 35 60% 65%;
-    --cream: 35 20% 15%;
-    --blush: 350 25% 15%;
-    --wine: 350 40% 55%;
+    --wine: 345 40% 55%;
+    --wine-dark: 345 45% 40%;
+    --wine-light: 345 35% 65%;
+    --wine-soft: 345 30% 60%;
+    --burgundy: 345 50% 50%;
+    --champagne: 40 30% 20%;
+    --gold: 38 55% 50%;
+    --gold-light: 40 50% 60%;
+    --rose-gold: 10 35% 60%;
+    --cream: 40 20% 12%;
+    --ivory: 45 20% 10%;
 
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
@@ -133,27 +144,56 @@
 @layer utilities {
   .text-gradient {
     @apply bg-clip-text text-transparent;
-    background-image: var(--gradient-romantic);
+    background-image: var(--gradient-gold);
+  }
+
+  .text-gradient-wine {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-wine);
+  }
+
+  .bg-gradient-wine {
+    background-image: var(--gradient-wine);
+  }
+
+  .bg-gradient-elegant {
+    background-image: var(--gradient-elegant);
   }
 
   .bg-gradient-romantic {
     background-image: var(--gradient-romantic);
   }
 
-  .bg-gradient-sunset {
-    background-image: var(--gradient-sunset);
+  .bg-gradient-gold {
+    background-image: var(--gradient-gold);
   }
 
   .bg-gradient-soft {
     background-image: var(--gradient-soft);
   }
 
-  .shadow-romantic {
-    box-shadow: var(--shadow-romantic);
+  .bg-gradient-card {
+    background-image: var(--gradient-card);
+  }
+
+  .bg-gradient-dark-wine {
+    background-image: var(--gradient-dark-wine);
+  }
+
+  .shadow-wine {
+    box-shadow: var(--shadow-wine);
+  }
+
+  .shadow-elegant {
+    box-shadow: var(--shadow-elegant);
   }
 
   .shadow-glow {
     box-shadow: var(--shadow-glow);
+  }
+
+  .shadow-card {
+    box-shadow: var(--shadow-card);
   }
 
   .animate-float {
@@ -166,6 +206,18 @@
 
   .animate-sparkle {
     animation: sparkle 2s ease-in-out infinite;
+  }
+
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  .glass-effect {
+    @apply backdrop-blur-xl bg-card/80;
+  }
+
+  .wine-border {
+    @apply border border-wine/20;
   }
 }
 
@@ -182,4 +234,25 @@
 @keyframes sparkle {
   0%, 100% { opacity: 0.3; transform: scale(0.8); }
   50% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes glow {
+  0% { box-shadow: 0 0 20px hsl(345 45% 25% / 0.2); }
+  100% { box-shadow: 0 0 40px hsl(345 45% 25% / 0.4); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    hsl(345 45% 25% / 0) 0%,
+    hsl(38 65% 55% / 0.3) 50%,
+    hsl(345 45% 25% / 0) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
 }

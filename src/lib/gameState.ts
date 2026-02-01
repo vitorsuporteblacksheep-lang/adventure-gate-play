@@ -4,10 +4,13 @@ export interface ChapterData {
   date: string;
   description: string;
   memory: string;
+  quote: string;
+  icon: string;
   image?: string;
   unlocked: boolean;
   gameCompleted: boolean;
   gameType: 'quiz' | 'memory' | 'puzzle' | 'sequence' | 'matching' | 'heart-catch';
+  musicUrl?: string;
 }
 
 export interface GameState {
@@ -36,8 +39,10 @@ const defaultChapters: ChapterData[] = [
     id: 'chapter-1',
     title: 'O Primeiro Olhar',
     date: 'Janeiro 2023',
-    description: 'Onde tudo começou...',
-    memory: 'Naquele momento, algo mudou. Um olhar que disse mais que mil palavras.',
+    description: 'Onde tudo começou, onde o destino nos uniu...',
+    memory: 'Naquele momento, algo mudou. Um olhar que disse mais que mil palavras. O universo conspirou para que nossos caminhos se cruzassem.',
+    quote: '"O amor nasce de um olhar, vive de um beijo e morre de uma lágrima."',
+    icon: '👀',
     unlocked: false,
     gameCompleted: false,
     gameType: 'quiz',
@@ -46,8 +51,10 @@ const defaultChapters: ChapterData[] = [
     id: 'chapter-2',
     title: 'Primeiro Encontro',
     date: 'Fevereiro 2023',
-    description: 'O nervosismo e a magia do primeiro café juntos.',
-    memory: 'As borboletas no estômago e as risadas que não paravam.',
+    description: 'O nervosismo, as borboletas, a magia do primeiro café juntos.',
+    memory: 'As borboletas no estômago e as risadas que não paravam. Cada segundo ao seu lado parecia um presente.',
+    quote: '"Você é o que eu não sabia que procurava."',
+    icon: '☕',
     unlocked: false,
     gameCompleted: false,
     gameType: 'memory',
@@ -57,7 +64,9 @@ const defaultChapters: ChapterData[] = [
     title: 'Nosso Primeiro Beijo',
     date: 'Março 2023',
     description: 'Um momento guardado para sempre no coração.',
-    memory: 'O mundo parou por um instante. Só existíamos nós dois.',
+    memory: 'O mundo parou por um instante. Só existíamos nós dois, e aquele momento ficou eternizado em nossas memórias.',
+    quote: '"Um beijo é uma carta de amor que não precisa de palavras."',
+    icon: '💋',
     unlocked: false,
     gameCompleted: false,
     gameType: 'sequence',
@@ -67,7 +76,9 @@ const defaultChapters: ChapterData[] = [
     title: 'Oficialmente Juntos',
     date: 'Abril 2023',
     description: 'O dia em que decidimos trilhar essa jornada lado a lado.',
-    memory: 'A certeza de que era você. Sempre foi você.',
+    memory: 'A certeza de que era você. Sempre foi você. Prometemos cuidar um do outro, e assim começou nossa história oficial.',
+    quote: '"Amar não é olhar um para o outro, é olhar juntos na mesma direção."',
+    icon: '💑',
     unlocked: false,
     gameCompleted: false,
     gameType: 'matching',
@@ -77,7 +88,9 @@ const defaultChapters: ChapterData[] = [
     title: 'Nossa Primeira Viagem',
     date: 'Junho 2023',
     description: 'Aventuras e descobertas em um lugar especial.',
-    memory: 'Cada paisagem ficou mais bonita ao seu lado.',
+    memory: 'Cada paisagem ficou mais bonita ao seu lado. Descobrimos que a melhor viagem é aquela que fazemos juntos.',
+    quote: '"A vida é uma viagem, e quem ama nunca viaja sozinho."',
+    icon: '✈️',
     unlocked: false,
     gameCompleted: false,
     gameType: 'puzzle',
@@ -87,7 +100,9 @@ const defaultChapters: ChapterData[] = [
     title: 'Promessas de Amor',
     date: 'Dezembro 2023',
     description: 'O momento em que juramos estar juntos para sempre.',
-    memory: 'Você é meu presente, meu futuro, minha eternidade.',
+    memory: 'Você é meu presente, meu futuro, minha eternidade. Com você, cada dia é uma nova razão para sorrir.',
+    quote: '"O amor verdadeiro não tem final feliz, porque o amor verdadeiro nunca acaba."',
+    icon: '💍',
     unlocked: false,
     gameCompleted: false,
     gameType: 'heart-catch',
