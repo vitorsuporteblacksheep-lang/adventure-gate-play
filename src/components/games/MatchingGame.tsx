@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Heart, Sparkles } from 'lucide-react';
+import { Heart, Sparkles, ArrowRight } from 'lucide-react';
 import { ChapterData } from '@/lib/gameState';
 
 interface MatchingGameProps {
@@ -64,23 +64,25 @@ const MatchingGame = ({ chapter, onComplete }: MatchingGameProps) => {
         <motion.div
           animate={{ scale: [1, 1.2, 1] }}
           transition={{ duration: 0.5 }}
+          className="relative inline-block"
         >
-          <Heart className="w-16 h-16 text-rose mx-auto mb-4" fill="currentColor" />
+          <div className="absolute inset-0 blur-2xl bg-wine/30 rounded-full" />
+          <Heart className="w-20 h-20 text-wine mx-auto mb-4 relative" fill="currentColor" />
         </motion.div>
-        <h3 className="font-display text-2xl text-foreground mb-2">
+        <h3 className="font-display text-3xl text-foreground mb-2">
           Combinação Perfeita!
         </h3>
-        <p className="text-muted-foreground">
+        <p className="text-muted-foreground font-body">
           Assim como nós dois 💕
         </p>
-        <div className="flex justify-center gap-3 mt-4">
+        <div className="flex justify-center gap-4 mt-4">
           {pairs.map((pair, i) => (
             <motion.span
               key={i}
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: i * 0.2 }}
-              className="text-2xl"
+              className="text-3xl"
             >
               {pair.emoji}
             </motion.span>
@@ -93,15 +95,15 @@ const MatchingGame = ({ chapter, onComplete }: MatchingGameProps) => {
   return (
     <div className="space-y-6">
       <div className="text-center">
-        <h3 className="font-display text-lg text-foreground mb-1">
+        <h3 className="font-display text-xl text-foreground mb-1">
           Combinações do Amor
         </h3>
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm text-muted-foreground font-body">
           Conecte as palavras que combinam
         </p>
       </div>
 
-      <div className="flex justify-center gap-8">
+      <div className="flex justify-center items-center gap-6">
         {/* Left column */}
         <div className="space-y-3">
           {pairs.map((pair, index) => (
@@ -111,14 +113,14 @@ const MatchingGame = ({ chapter, onComplete }: MatchingGameProps) => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               animate={wrongMatch && leftSelected === index ? { x: [-3, 3, -3, 3, 0] } : {}}
-              className={`w-24 py-3 rounded-xl font-medium transition-all ${
+              className={`w-24 py-3 rounded-xl font-body font-semibold transition-all shadow-soft ${
                 matched.includes(index)
-                  ? 'bg-rose text-primary-foreground'
+                  ? 'bg-wine text-primary-foreground'
                   : leftSelected === index
                   ? wrongMatch
                     ? 'bg-destructive text-destructive-foreground'
-                    : 'bg-gold text-primary-foreground'
-                  : 'bg-muted hover:bg-muted/80'
+                    : 'bg-gold text-wine-dark'
+                  : 'bg-card border border-wine/20 hover:border-wine/50'
               }`}
             >
               {pair.left}
@@ -128,7 +130,7 @@ const MatchingGame = ({ chapter, onComplete }: MatchingGameProps) => {
 
         {/* Connection indicator */}
         <div className="flex items-center">
-          <Heart className="w-6 h-6 text-rose-light animate-pulse-soft" />
+          <ArrowRight className="w-6 h-6 text-wine/30" />
         </div>
 
         {/* Right column (shuffled) */}
@@ -140,10 +142,10 @@ const MatchingGame = ({ chapter, onComplete }: MatchingGameProps) => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               disabled={matched.includes(originalIndex)}
-              className={`w-24 py-3 rounded-xl font-medium transition-all ${
+              className={`w-24 py-3 rounded-xl font-body font-semibold transition-all shadow-soft ${
                 matched.includes(originalIndex)
-                  ? 'bg-rose text-primary-foreground'
-                  : 'bg-muted hover:bg-muted/80'
+                  ? 'bg-wine text-primary-foreground'
+                  : 'bg-card border border-wine/20 hover:border-wine/50'
               }`}
             >
               {pairs[originalIndex].right}
@@ -152,17 +154,17 @@ const MatchingGame = ({ chapter, onComplete }: MatchingGameProps) => {
         </div>
       </div>
 
-      <div className="flex justify-center gap-2">
+      <div className="flex justify-center gap-3">
         {pairs.map((_, i) => (
           <motion.div
             key={i}
             animate={{ scale: matched.includes(i) ? 1 : 0.8 }}
-            className={`w-8 h-8 rounded-full flex items-center justify-center ${
-              matched.includes(i) ? 'bg-rose' : 'bg-muted'
+            className={`w-10 h-10 rounded-full flex items-center justify-center shadow-soft ${
+              matched.includes(i) ? 'bg-wine' : 'bg-card border border-wine/20'
             }`}
           >
             {matched.includes(i) && (
-              <Sparkles className="w-4 h-4 text-primary-foreground" />
+              <Sparkles className="w-5 h-5 text-primary-foreground" />
             )}
           </motion.div>
         ))}

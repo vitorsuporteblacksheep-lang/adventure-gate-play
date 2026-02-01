@@ -19,7 +19,6 @@ const PuzzleGame = ({ chapter, onComplete }: PuzzleGameProps) => {
   }, []);
 
   const initializePuzzle = () => {
-    // Create a solvable puzzle
     let shuffled: number[];
     do {
       shuffled = Array.from({ length: totalPieces }, (_, i) => i);
@@ -61,16 +60,7 @@ const PuzzleGame = ({ chapter, onComplete }: PuzzleGameProps) => {
     }
   };
 
-  const colors = [
-    'from-rose to-rose-light',
-    'from-rose-light to-gold',
-    'from-gold to-gold-light',
-    'from-gold-light to-rose-light',
-    'from-rose to-gold',
-    'from-gold to-rose',
-    'from-rose-light to-gold-light',
-    'from-gold-light to-rose',
-  ];
+  const pieceLabels = ['💖', '💕', '💗', '💘', '💝', '💞', '💓', '💛'];
 
   if (completed) {
     return (
@@ -82,13 +72,15 @@ const PuzzleGame = ({ chapter, onComplete }: PuzzleGameProps) => {
         <motion.div
           animate={{ scale: [1, 1.2, 1] }}
           transition={{ duration: 0.5 }}
+          className="relative inline-block"
         >
-          <Heart className="w-16 h-16 text-rose mx-auto mb-4" fill="currentColor" />
+          <div className="absolute inset-0 blur-2xl bg-wine/30 rounded-full" />
+          <Heart className="w-20 h-20 text-wine mx-auto mb-4 relative" fill="currentColor" />
         </motion.div>
-        <h3 className="font-display text-2xl text-foreground mb-2">
+        <h3 className="font-display text-3xl text-foreground mb-2">
           Puzzle Completo!
         </h3>
-        <p className="text-muted-foreground">
+        <p className="text-muted-foreground font-body">
           Você juntou as peças do nosso amor 💕
         </p>
       </motion.div>
@@ -98,17 +90,17 @@ const PuzzleGame = ({ chapter, onComplete }: PuzzleGameProps) => {
   return (
     <div className="space-y-6">
       <div className="text-center">
-        <h3 className="font-display text-lg text-foreground mb-1">
+        <h3 className="font-display text-xl text-foreground mb-1">
           Puzzle do Amor
         </h3>
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm text-muted-foreground font-body">
           Organize as peças clicando nas adjacentes ao espaço vazio
         </p>
       </div>
 
       <div className="flex justify-center">
         <div 
-          className="grid gap-1 p-2 bg-muted rounded-xl"
+          className="grid gap-2 p-3 bg-gradient-wine rounded-xl shadow-wine"
           style={{ gridTemplateColumns: `repeat(${gridSize}, 1fr)` }}
         >
           {pieces.map((piece, index) => (
@@ -118,14 +110,17 @@ const PuzzleGame = ({ chapter, onComplete }: PuzzleGameProps) => {
               whileHover={{ scale: piece !== totalPieces - 1 ? 1.05 : 1 }}
               whileTap={{ scale: piece !== totalPieces - 1 ? 0.95 : 1 }}
               layout
-              className={`w-16 h-16 rounded-lg flex items-center justify-center font-display text-xl transition-all ${
+              className={`w-16 h-16 rounded-lg flex flex-col items-center justify-center font-display text-xl transition-all ${
                 piece === totalPieces - 1
-                  ? 'bg-transparent'
-                  : `bg-gradient-to-br ${colors[piece % colors.length]} text-primary-foreground shadow-soft`
+                  ? 'bg-wine-dark/50'
+                  : 'bg-gradient-card text-foreground shadow-soft border border-wine/20'
               }`}
             >
               {piece !== totalPieces - 1 && (
-                <span>{piece + 1}</span>
+                <>
+                  <span className="text-2xl">{pieceLabels[piece]}</span>
+                  <span className="text-xs text-muted-foreground">{piece + 1}</span>
+                </>
               )}
             </motion.button>
           ))}
@@ -135,7 +130,7 @@ const PuzzleGame = ({ chapter, onComplete }: PuzzleGameProps) => {
       <div className="text-center">
         <button
           onClick={initializePuzzle}
-          className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-2 mx-auto"
+          className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-2 mx-auto font-body"
         >
           <RotateCcw className="w-4 h-4" />
           Embaralhar

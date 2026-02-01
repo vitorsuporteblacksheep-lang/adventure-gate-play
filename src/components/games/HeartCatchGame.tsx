@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, Sparkles } from 'lucide-react';
+import { Heart, Sparkles, Timer } from 'lucide-react';
 import { ChapterData } from '@/lib/gameState';
 
 interface HeartCatchGameProps {
@@ -25,12 +25,11 @@ const HeartCatchGame = ({ chapter, onComplete }: HeartCatchGameProps) => {
   const spawnHeart = useCallback(() => {
     const newHeart: FallingHeart = {
       id: Date.now() + Math.random(),
-      x: 10 + Math.random() * 80,
+      x: 5 + Math.random() * 90,
       caught: false,
     };
     setHearts(prev => [...prev, newHeart]);
 
-    // Remove heart after animation
     setTimeout(() => {
       setHearts(prev => prev.filter(h => h.id !== newHeart.id));
     }, 3000);
@@ -46,7 +45,6 @@ const HeartCatchGame = ({ chapter, onComplete }: HeartCatchGameProps) => {
           clearInterval(spawnInterval);
           clearInterval(timerInterval);
           if (score < targetScore) {
-            // Reset game
             setTimeout(() => {
               setTimeLeft(15);
               setScore(0);
@@ -82,18 +80,25 @@ const HeartCatchGame = ({ chapter, onComplete }: HeartCatchGameProps) => {
   if (!gameStarted) {
     return (
       <div className="text-center py-8">
-        <Heart className="w-16 h-16 text-rose mx-auto mb-4 animate-heart-beat" fill="currentColor" />
-        <h3 className="font-display text-xl text-foreground mb-2">
+        <motion.div
+          animate={{ scale: [1, 1.1, 1] }}
+          transition={{ duration: 1.5, repeat: Infinity }}
+          className="relative inline-block"
+        >
+          <div className="absolute inset-0 blur-2xl bg-wine/20 rounded-full" />
+          <Heart className="w-20 h-20 text-wine mx-auto mb-4 relative" fill="currentColor" />
+        </motion.div>
+        <h3 className="font-display text-2xl text-foreground mb-2">
           Capture os Corações
         </h3>
-        <p className="text-muted-foreground mb-6">
+        <p className="text-muted-foreground mb-6 font-body">
           Capture {targetScore} corações em 15 segundos!
         </p>
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => setGameStarted(true)}
-          className="px-8 py-3 bg-gradient-romantic text-primary-foreground rounded-xl font-medium shadow-romantic"
+          className="px-8 py-3 bg-gradient-wine text-primary-foreground rounded-xl font-body font-semibold shadow-wine"
         >
           Começar
         </motion.button>
@@ -111,13 +116,15 @@ const HeartCatchGame = ({ chapter, onComplete }: HeartCatchGameProps) => {
         <motion.div
           animate={{ scale: [1, 1.2, 1] }}
           transition={{ duration: 0.5 }}
+          className="relative inline-block"
         >
-          <Heart className="w-16 h-16 text-rose mx-auto mb-4" fill="currentColor" />
+          <div className="absolute inset-0 blur-2xl bg-wine/30 rounded-full" />
+          <Heart className="w-20 h-20 text-wine mx-auto mb-4 relative" fill="currentColor" />
         </motion.div>
-        <h3 className="font-display text-2xl text-foreground mb-2">
+        <h3 className="font-display text-3xl text-foreground mb-2">
           Amor Capturado!
         </h3>
-        <p className="text-muted-foreground">
+        <p className="text-muted-foreground font-body">
           Você capturou {score} corações! ❤️
         </p>
         <div className="flex justify-center mt-4">
@@ -138,19 +145,30 @@ const HeartCatchGame = ({ chapter, onComplete }: HeartCatchGameProps) => {
 
   return (
     <div className="space-y-4">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center bg-card rounded-xl p-3 border border-wine/10">
         <div className="flex items-center gap-2">
-          <Heart className="w-5 h-5 text-rose" fill="currentColor" />
-          <span className="font-medium text-foreground">
+          <Heart className="w-5 h-5 text-wine" fill="currentColor" />
+          <span className="font-body font-semibold text-foreground">
             {score} / {targetScore}
           </span>
         </div>
-        <div className={`font-medium ${timeLeft <= 5 ? 'text-destructive' : 'text-foreground'}`}>
+        <div className={`flex items-center gap-2 font-body font-semibold ${
+          timeLeft <= 5 ? 'text-destructive' : 'text-foreground'
+        }`}>
+          <Timer className="w-4 h-4" />
           {timeLeft}s
         </div>
       </div>
 
-      <div className="relative h-64 bg-gradient-soft rounded-xl overflow-hidden">
+      <div className="relative h-64 bg-gradient-elegant rounded-xl overflow-hidden border border-wine/10">
+        {/* Background pattern */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `radial-gradient(circle at 2px 2px, hsl(345 45% 25% / 0.2) 1px, transparent 0)`,
+            backgroundSize: '25px 25px'
+          }} />
+        </div>
+
         <AnimatePresence>
           {hearts.map((heart) => (
             <motion.button
@@ -169,13 +187,13 @@ const HeartCatchGame = ({ chapter, onComplete }: HeartCatchGameProps) => {
               }
               onClick={() => handleCatchHeart(heart.id)}
               disabled={heart.caught}
-              className="absolute cursor-pointer"
+              className="absolute cursor-pointer group"
               style={{ left: `${heart.x}%` }}
               whileHover={{ scale: 1.2 }}
             >
               <Heart
-                className={`w-10 h-10 ${
-                  heart.caught ? 'text-gold' : 'text-rose'
+                className={`w-10 h-10 drop-shadow-lg transition-colors ${
+                  heart.caught ? 'text-gold' : 'text-wine group-hover:text-gold'
                 }`}
                 fill="currentColor"
               />
@@ -190,7 +208,7 @@ const HeartCatchGame = ({ chapter, onComplete }: HeartCatchGameProps) => {
           animate={{ opacity: 1 }}
           className="text-center"
         >
-          <p className="text-muted-foreground mb-2">
+          <p className="text-muted-foreground mb-2 font-body">
             Você capturou {score} corações. Tente novamente!
           </p>
         </motion.div>

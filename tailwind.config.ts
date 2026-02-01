@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ["Playfair Display", "serif"],
-        body: ["Nunito", "sans-serif"],
+        display: ["Cormorant Garamond", "serif"],
+        body: ["Quicksand", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -51,18 +51,21 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        rose: {
-          DEFAULT: "hsl(var(--rose))",
-          light: "hsl(var(--rose-light))",
-          dark: "hsl(var(--rose-dark))",
+        wine: {
+          DEFAULT: "hsl(var(--wine))",
+          dark: "hsl(var(--wine-dark))",
+          light: "hsl(var(--wine-light))",
+          soft: "hsl(var(--wine-soft))",
         },
+        burgundy: "hsl(var(--burgundy))",
+        champagne: "hsl(var(--champagne))",
         gold: {
           DEFAULT: "hsl(var(--gold))",
           light: "hsl(var(--gold-light))",
         },
+        "rose-gold": "hsl(var(--rose-gold))",
         cream: "hsl(var(--cream))",
-        blush: "hsl(var(--blush))",
-        wine: "hsl(var(--wine))",
+        ivory: "hsl(var(--ivory))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -78,6 +81,8 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        xl: "calc(var(--radius) + 4px)",
+        "2xl": "calc(var(--radius) + 8px)",
       },
       keyframes: {
         "accordion-down": {
@@ -90,7 +95,7 @@ export default {
         },
         "heart-beat": {
           "0%, 100%": { transform: "scale(1)" },
-          "50%": { transform: "scale(1.1)" },
+          "50%": { transform: "scale(1.15)" },
         },
         "fade-in-up": {
           "0%": { opacity: "0", transform: "translateY(20px)" },
@@ -100,13 +105,18 @@ export default {
           "0%": { backgroundPosition: "-200% 0" },
           "100%": { backgroundPosition: "200% 0" },
         },
+        float: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-8px)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "heart-beat": "heart-beat 1.5s ease-in-out infinite",
-        "fade-in-up": "fade-in-up 0.5s ease-out",
+        "fade-in-up": "fade-in-up 0.6s ease-out",
         shimmer: "shimmer 2s linear infinite",
+        float: "float 4s ease-in-out infinite",
       },
     },
   },
