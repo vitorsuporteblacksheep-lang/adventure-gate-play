@@ -292,13 +292,17 @@ export const completeChapterGame = (state: GameState, chapterId: string): GameSt
     newChapters[chapterIndex + 1] = { ...newChapters[chapterIndex + 1], unlocked: true };
   }
 
-  // Check section unlocks
+  // Check section unlocks - only unlock when ALL chapters are completed
+  const totalChapters = newChapters.length;
   const completedCount = newChapters.filter(ch => ch.gameCompleted).length;
+  const allCompleted = completedCount === totalChapters;
   const newSectionUnlocks = { ...state.sectionUnlocks };
   
-  if (completedCount >= 2) newSectionUnlocks.gallery = true;
-  if (completedCount >= 4) newSectionUnlocks.feelings = true;
-  if (completedCount >= 6) newSectionUnlocks.future = true;
+  if (allCompleted) {
+    newSectionUnlocks.gallery = true;
+    newSectionUnlocks.feelings = true;
+    newSectionUnlocks.future = true;
+  }
 
   const newState = {
     ...state,
