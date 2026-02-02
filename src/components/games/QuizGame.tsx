@@ -46,8 +46,15 @@ const quizQuestions: Record<string, { question: string; options: string[]; corre
   ],
   'chapter-7': [
     {
-      question: 'Quanto dinheiro você perdeu no golpe do dia dos namorados?',
-      options: ['R$ 200', 'R$ 350', 'R$ 500', 'R$ 800'],
+      question: 'Qual foi o restaurante do nosso primeiro dia dos namorados?',
+      options: ['Restaurante Coco Bambu', 'Restaurante Rio', 'Restaurante Madero', 'Restaurante Outback'],
+      correct: 1,
+    },
+  ],
+  'chapter-8': [
+    {
+      question: 'Qual foi o lugar da nossa primeira viagem de casal?',
+      options: ['Rio de Janeiro', 'Fortaleza', 'Salvador', 'Recife'],
       correct: 2,
     },
   ],
