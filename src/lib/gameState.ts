@@ -37,15 +37,17 @@ const STORAGE_KEY = 'nossa-historia-state';
 const defaultChapters: ChapterData[] = [
   {
     id: 'chapter-1',
-    title: 'O Primeiro Olhar',
-    date: 'Janeiro 2023',
-    description: 'Onde tudo começou, onde o destino nos uniu...',
-    memory: 'Naquele momento, algo mudou. Um olhar que disse mais que mil palavras. O universo conspirou para que nossos caminhos se cruzassem.',
-    quote: '"O amor nasce de um olhar, vive de um beijo e morre de uma lágrima."',
-    icon: '👀',
+    title: 'Apenas Bons Amigos',
+    date: 'Maio de 2021',
+    description: 'Nessa época começa a nossa história, como bons amigos de ensino médio.',
+    memory: 'Eu conheço a Nataly, uma pessoa incrível, sempre disposta a ajudar, com o coração aberto, que sempre entende o lado das pessoas, que é muito solicita e tem o melhor coração do mundo.',
+    quote: '"De uma boa amizade nascerá um grande amor"',
+    icon: '🤝',
+    image: '/chapters/chapter-1.jpeg',
     unlocked: false,
     gameCompleted: false,
     gameType: 'quiz',
+    musicUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', // Placeholder - Céu Azul CBJR
   },
   {
     id: 'chapter-2',
