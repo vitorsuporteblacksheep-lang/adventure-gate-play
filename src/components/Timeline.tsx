@@ -4,6 +4,7 @@ import { Heart, Lock, ChevronRight, Gamepad2, Play, Pause, Volume2, Sparkles, Qu
 import { ChapterData, GameState, completeChapterGame } from '@/lib/gameState';
 import ChapterDetail from './ChapterDetail';
 import ChapterGame from './games/ChapterGame';
+import ChapterReveal from './ChapterReveal';
 
 interface TimelineProps {
   chapters: ChapterData[];
@@ -32,6 +33,8 @@ const Timeline = ({
 }: TimelineProps) => {
   const [selectedChapter, setSelectedChapter] = useState<ChapterData | null>(null);
   const [showGame, setShowGame] = useState(false);
+  const [showReveal, setShowReveal] = useState(false);
+  const [revealChapter, setRevealChapter] = useState<ChapterData | null>(null);
   const [playingChapterId, setPlayingChapterId] = useState<string | null>(null);
   const [playingMusicId, setPlayingMusicId] = useState<string | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -56,7 +59,17 @@ const Timeline = ({
     
     const chapter = newState.chapters.find(ch => ch.id === chapterId);
     if (chapter) {
-      setTimeout(() => setSelectedChapter(chapter), 500);
+      // Show reveal animation
+      setRevealChapter(chapter);
+      setShowReveal(true);
+    }
+  };
+
+  const handleRevealComplete = () => {
+    setShowReveal(false);
+    if (revealChapter) {
+      setTimeout(() => setSelectedChapter(revealChapter), 300);
+      setRevealChapter(null);
     }
   };
 
@@ -288,6 +301,16 @@ const Timeline = ({
             chapter={playingChapter}
             onComplete={() => handleGameComplete(playingChapter.id)}
             onClose={handleCloseGame}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Reveal Animation */}
+      <AnimatePresence>
+        {showReveal && revealChapter && (
+          <ChapterReveal
+            chapter={revealChapter}
+            onComplete={handleRevealComplete}
           />
         )}
       </AnimatePresence>
