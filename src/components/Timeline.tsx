@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, Lock, ChevronRight, Gamepad2, Play, Sparkles, Quote } from 'lucide-react';
+import { Heart, Lock, ChevronRight, Gamepad2, Play, Sparkles, Quote, Moon } from 'lucide-react';
 import { ChapterData, GameState, completeChapterGame } from '@/lib/gameState';
 import ChapterDetail from './ChapterDetail';
 import ChapterGame from './games/ChapterGame';
 import ChapterReveal from './ChapterReveal';
+import SecretChapterReveal from './SecretChapterReveal';
+import SecretChapterDetail from './SecretChapterDetail';
 
 interface TimelineProps {
   chapters: ChapterData[];
@@ -27,9 +29,25 @@ const Timeline = ({
   const [showReveal, setShowReveal] = useState(false);
   const [revealChapter, setRevealChapter] = useState<ChapterData | null>(null);
   const [playingChapterId, setPlayingChapterId] = useState<string | null>(null);
+  const [showSecretReveal, setShowSecretReveal] = useState(false);
+  const [secretChapter, setSecretChapter] = useState<ChapterData | null>(null);
+  const [showSecretDetail, setShowSecretDetail] = useState(false);
+
+  // Filter out secret chapters from the visible list
+  const visibleChapters = chapters.filter(ch => !ch.isSecret);
+  const secretChapterData = chapters.find(ch => ch.isSecret);
+  const chapter11 = chapters.find(ch => ch.id === 'chapter-11');
+  const secretUnlocked = secretChapterData?.unlocked || false;
 
   const handleChapterClick = (chapter: ChapterData) => {
     if (!chapter.unlocked) return;
+    
+    if (chapter.isSecret) {
+      // Secret chapter - show secret detail
+      setSelectedChapter(chapter);
+      setShowSecretDetail(true);
+      return;
+    }
     
     if (!chapter.gameCompleted) {
       setPlayingChapterId(chapter.id);
@@ -57,8 +75,31 @@ const Timeline = ({
   const handleRevealComplete = () => {
     setShowReveal(false);
     if (revealChapter) {
+      // Check if this was the final chapter (chapter-11) - trigger secret reveal
+      if (revealChapter.isFinalChapter && secretChapterData) {
+        setTimeout(() => {
+          setSecretChapter(secretChapterData);
+          setShowSecretReveal(true);
+          // Unlock secret chapter in state
+          const updatedChapters = gameState.chapters.map(ch => 
+            ch.id === 'chapter-12' ? { ...ch, unlocked: true, gameCompleted: true } : ch
+          );
+          onStateChange({ ...gameState, chapters: updatedChapters });
+        }, 500);
+      }
       setTimeout(() => setSelectedChapter(revealChapter), 300);
       setRevealChapter(null);
+    }
+  };
+
+  const handleSecretRevealComplete = () => {
+    setShowSecretReveal(false);
+    if (secretChapter) {
+      setTimeout(() => {
+        setSelectedChapter(secretChapter);
+        setShowSecretDetail(true);
+      }, 300);
+      setSecretChapter(null);
     }
   };
 
@@ -82,7 +123,7 @@ const Timeline = ({
   };
 
   const playingChapter = chapters.find(ch => ch.id === playingChapterId);
-  const completedCount = chapters.filter(ch => ch.gameCompleted).length;
+  const completedCount = visibleChapters.filter(ch => ch.gameCompleted).length;
 
   return (
     <div className="min-h-screen pb-28 pt-6 px-4 bg-gradient-elegant">
@@ -102,7 +143,7 @@ const Timeline = ({
           Nossa História
         </h1>
         <p className="text-muted-foreground font-body">
-          {completedCount} de {chapters.length} capítulos completos
+          {completedCount} de {visibleChapters.length} capítulos completos
         </p>
         
         {/* Progress bar */}
@@ -110,7 +151,7 @@ const Timeline = ({
           <div className="h-2 bg-muted rounded-full overflow-hidden">
             <motion.div
               initial={{ width: 0 }}
-              animate={{ width: `${(completedCount / chapters.length) * 100}%` }}
+              animate={{ width: `${(completedCount / visibleChapters.length) * 100}%` }}
               className="h-full bg-gradient-wine rounded-full"
               transition={{ duration: 0.8, ease: 'easeOut' }}
             />
@@ -120,7 +161,7 @@ const Timeline = ({
 
       {/* Chapters */}
       <div className="max-w-lg mx-auto space-y-6">
-        {chapters.map((chapter, index) => (
+        {visibleChapters.map((chapter, index) => (
           <motion.div
             key={chapter.id}
             initial={{ opacity: 0, y: 30 }}
@@ -172,6 +213,11 @@ const Timeline = ({
                       </span>
                       {chapter.gameCompleted && (
                         <Sparkles className="w-4 h-4 text-gold" />
+                      )}
+                      {chapter.isFinalChapter && chapter.gameCompleted && (
+                        <span className="text-xs px-2 py-0.5 bg-wine/20 text-wine rounded-full font-body">
+                          Final
+                        </span>
                       )}
                     </div>
                     
@@ -241,15 +287,113 @@ const Timeline = ({
             </motion.div>
           </motion.div>
         ))}
+
+        {/* Secret Chapter Card - Only visible after unlocked */}
+        {secretUnlocked && secretChapterData && (
+          <motion.div
+            initial={{ opacity: 0, y: 30, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ delay: 0.3, duration: 0.6, type: 'spring' }}
+          >
+            <motion.div
+              whileHover={{ scale: 1.02, y: -4 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => handleChapterClick(secretChapterData)}
+              className="relative overflow-hidden rounded-2xl cursor-pointer"
+              style={{
+                background: 'linear-gradient(135deg, rgba(26,26,46,0.95) 0%, rgba(15,52,96,0.95) 100%)',
+                border: '1px solid rgba(212,175,55,0.4)',
+                boxShadow: '0 0 30px rgba(212,175,55,0.2), 0 0 60px rgba(79,70,229,0.1)',
+              }}
+            >
+              {/* Shimmer effect */}
+              <div className="absolute inset-0 shimmer pointer-events-none opacity-50" />
+
+              <div className="p-5">
+                <div className="flex items-start gap-4">
+                  {/* Icon */}
+                  <div 
+                    className="flex-shrink-0 w-16 h-16 rounded-xl flex items-center justify-center"
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(212,175,55,0.3) 0%, rgba(147,112,219,0.3) 100%)',
+                      boxShadow: '0 0 20px rgba(212,175,55,0.3)',
+                    }}
+                  >
+                    <Moon className="w-8 h-8" style={{ color: '#fef3c7' }} />
+                  </div>
+
+                  {/* Content */}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span 
+                        className="text-xs font-semibold uppercase tracking-wider font-body"
+                        style={{ color: '#D4AF37' }}
+                      >
+                        {secretChapterData.date}
+                      </span>
+                      <Sparkles className="w-4 h-4" style={{ color: '#D4AF37' }} />
+                      <span 
+                        className="text-xs px-2 py-0.5 rounded-full font-body"
+                        style={{ 
+                          background: 'rgba(147,112,219,0.3)',
+                          color: '#E9D5FF',
+                        }}
+                      >
+                        Secreto
+                      </span>
+                    </div>
+                    
+                    <h3 
+                      className="font-display text-xl mb-1"
+                      style={{ color: '#fef3c7' }}
+                    >
+                      {secretChapterData.title}
+                    </h3>
+                    
+                    <p 
+                      className="text-sm font-body"
+                      style={{ color: 'rgba(254,243,199,0.6)' }}
+                    >
+                      Um capítulo especial só para nós...
+                    </p>
+                  </div>
+
+                  <ChevronRight className="w-6 h-6 mt-4 flex-shrink-0" style={{ color: '#D4AF37' }} />
+                </div>
+              </div>
+
+              {/* Progress indicator - twilight themed */}
+              <div 
+                className="h-1"
+                style={{
+                  background: 'linear-gradient(90deg, #D4AF37 0%, #9370DB 50%, #4B0082 100%)',
+                }}
+              />
+            </motion.div>
+          </motion.div>
+        )}
       </div>
 
 
-      {/* Chapter Detail Modal */}
+      {/* Chapter Detail Modal - Regular chapters */}
       <AnimatePresence>
-        {selectedChapter && (
+        {selectedChapter && !selectedChapter.isSecret && !showSecretDetail && (
           <ChapterDetail
             chapter={selectedChapter}
             onClose={() => setSelectedChapter(null)}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Secret Chapter Detail Modal */}
+      <AnimatePresence>
+        {showSecretDetail && selectedChapter?.isSecret && (
+          <SecretChapterDetail
+            chapter={selectedChapter}
+            onClose={() => {
+              setShowSecretDetail(false);
+              setSelectedChapter(null);
+            }}
           />
         )}
       </AnimatePresence>
@@ -265,12 +409,22 @@ const Timeline = ({
         )}
       </AnimatePresence>
 
-      {/* Reveal Animation */}
+      {/* Reveal Animation - Regular */}
       <AnimatePresence>
         {showReveal && revealChapter && (
           <ChapterReveal
             chapter={revealChapter}
             onComplete={handleRevealComplete}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Secret Chapter Reveal Animation */}
+      <AnimatePresence>
+        {showSecretReveal && secretChapter && (
+          <SecretChapterReveal
+            chapter={secretChapter}
+            onComplete={handleSecretRevealComplete}
           />
         )}
       </AnimatePresence>

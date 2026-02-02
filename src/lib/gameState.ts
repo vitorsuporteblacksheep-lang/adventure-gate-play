@@ -13,6 +13,8 @@ export interface ChapterData {
   gameType: 'quiz' | 'memory' | 'puzzle' | 'sequence' | 'matching' | 'heart-catch' | 'heartbeat';
   musicUrl?: string;
   spotifyEmbedUrl?: string;
+  isFinalChapter?: boolean;
+  isSecret?: boolean;
 }
 
 export interface GameState {
@@ -140,7 +142,7 @@ const defaultChapters: ChapterData[] = [
   {
     id: 'chapter-8',
     title: 'Nossa Primeira Viagem em Casal (Sozinhos)',
-    date: 'Salvador',
+    date: 'Outubro de 2024',
     description: 'Ahh Salvador, essa foi a nossa primeira viagem em casal maravilhosa que fizemos, o nosso primeiro ninho de amor, essa viagem foi simplesmente incrível, todos os momentos, tudo foi incrível, desde o Airbnb até os pontos turísticos, ficou marcada na minha mente como inesquecível.',
     memory: 'Nosso primeiro ninho de amor 💕',
     quote: '"A beleza de Salvador só não é mais que a sua"',
@@ -168,7 +170,7 @@ const defaultChapters: ChapterData[] = [
   {
     id: 'chapter-10',
     title: 'Nossa Primeira Fantasia de Carnaval Juntos',
-    date: 'Fevereiro de 2024',
+    date: 'Fevereiro de 2025',
     description: 'Essa é uma lembrança do nosso primeiro Carnaval fantasiados. Foi maravilhoso e tem tudo a ver com você, com a sua energia, com a vibe do seu mês de fevereiro.',
     memory: 'Você era a mulher mais linda de todo o lugar 💕',
     quote: '"Você era a mulher mais linda de todo o lugar"',
@@ -182,7 +184,7 @@ const defaultChapters: ChapterData[] = [
   {
     id: 'chapter-11',
     title: 'Nossa Viagem a Cidade Maravilhosa',
-    date: 'Rio de Janeiro',
+    date: 'Outubro de 2025',
     description: 'Essa lembrança é uma das mais maravilhosas que tenho contigo, em meio a tanta beleza dessa cidade, eu me perco em meio a sua beleza, eu achei que ia ver uma das 7 maravilhas do mundo, mas ele nem se compara a sua beleza quando acorda de manhã do lado.',
     memory: 'Te amo minha Garota de Ipanema 💕',
     quote: '"Te amo minha Garota de Ipanema"',
@@ -192,6 +194,23 @@ const defaultChapters: ChapterData[] = [
     gameCompleted: false,
     gameType: 'quiz',
     spotifyEmbedUrl: 'https://open.spotify.com/embed/track/2vTDA7mOYWtuduCylWfiFd?utm_source=generator',
+    isFinalChapter: true,
+  },
+  {
+    id: 'chapter-12',
+    title: 'O Amor Que Não Envelhece',
+    date: '08/02/2026',
+    description: '',
+    memory: 'Um amor eterno, como o crepúsculo que nunca termina 🌙',
+    quote: '"E assim, como a lua e o sol, nosso amor é eterno"',
+    icon: '🌙',
+    image: '',
+    videoUrl: '',
+    unlocked: false,
+    gameCompleted: false,
+    gameType: 'quiz',
+    spotifyEmbedUrl: 'https://open.spotify.com/embed/track/6lanRgr6wXibZr8KgzXxBl?utm_source=generator',
+    isSecret: true,
   },
 ];
 

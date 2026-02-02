@@ -1,0 +1,283 @@
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { X, Heart, Calendar, Quote, Sparkles, Music, Moon, Star } from 'lucide-react';
+import { ChapterData } from '@/lib/gameState';
+
+interface SecretChapterDetailProps {
+  chapter: ChapterData;
+  onClose: () => void;
+}
+
+const SecretChapterDetail = ({ chapter, onClose }: SecretChapterDetailProps) => {
+  const [videoLoaded, setVideoLoaded] = useState(false);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto"
+      style={{
+        background: 'linear-gradient(135deg, #0a0a12 0%, #1a1a2e 30%, #16213e 60%, #0f3460 100%)',
+      }}
+      onClick={onClose}
+    >
+      {/* Floating particles - Twilight atmosphere */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(30)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-amber-200/40 rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              y: [-20, 20, -20],
+              opacity: [0.2, 0.8, 0.2],
+              scale: [1, 1.5, 1],
+            }}
+            transition={{
+              duration: 3 + Math.random() * 2,
+              repeat: Infinity,
+              delay: Math.random() * 2,
+            }}
+          />
+        ))}
+
+        {/* Floating moons and stars */}
+        <motion.div
+          className="absolute top-10 right-10 text-amber-200/30"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
+        >
+          <Moon className="w-24 h-24" />
+        </motion.div>
+
+        {[...Array(8)].map((_, i) => (
+          <motion.div
+            key={`star-${i}`}
+            className="absolute text-amber-100/40"
+            style={{
+              left: `${10 + Math.random() * 80}%`,
+              top: `${5 + Math.random() * 30}%`,
+            }}
+            animate={{
+              scale: [1, 1.3, 1],
+              opacity: [0.3, 0.8, 0.3],
+            }}
+            transition={{
+              duration: 2 + Math.random(),
+              repeat: Infinity,
+              delay: Math.random() * 2,
+            }}
+          >
+            <Star className="w-4 h-4" fill="currentColor" />
+          </motion.div>
+        ))}
+      </div>
+
+      <motion.div
+        initial={{ scale: 0.9, opacity: 0, y: 20 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        exit={{ scale: 0.9, opacity: 0, y: 20 }}
+        onClick={(e) => e.stopPropagation()}
+        className="relative w-full max-w-4xl mx-auto my-8 rounded-3xl overflow-hidden"
+        style={{
+          background: 'linear-gradient(180deg, rgba(26,26,46,0.95) 0%, rgba(15,52,96,0.95) 100%)',
+          border: '1px solid rgba(212,175,55,0.3)',
+          boxShadow: '0 0 60px rgba(212,175,55,0.2), 0 0 120px rgba(79,70,229,0.1)',
+        }}
+      >
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          className="absolute right-4 top-4 z-10 p-2 rounded-full bg-black/30 hover:bg-black/50 transition-colors backdrop-blur-sm"
+        >
+          <X className="w-5 h-5 text-white" />
+        </button>
+
+        {/* Header */}
+        <div className="p-8 text-center border-b border-amber-200/10">
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: 0.2, type: 'spring' }}
+            className="mb-4"
+          >
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-amber-400/20 to-purple-600/20 border border-amber-200/30">
+              <Moon className="w-10 h-10 text-amber-200" />
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            <div className="flex items-center justify-center gap-2 mb-3">
+              <Sparkles className="w-4 h-4 text-amber-300" />
+              <span className="text-amber-200/80 font-body text-sm tracking-wider uppercase">
+                Capítulo Secreto
+              </span>
+              <Sparkles className="w-4 h-4 text-amber-300" />
+            </div>
+
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <Calendar className="w-4 h-4 text-amber-200/60" />
+              <span className="text-amber-200/60 font-body">{chapter.date}</span>
+            </div>
+
+            <h1 
+              className="font-display text-4xl md:text-5xl mb-4 bg-gradient-to-r from-amber-200 via-amber-100 to-amber-300 bg-clip-text text-transparent"
+              style={{ textShadow: '0 0 30px rgba(212,175,55,0.3)' }}
+            >
+              {chapter.title}
+            </h1>
+          </motion.div>
+        </div>
+
+        {/* Video Section - Large and prominent */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="p-6 md:p-8"
+        >
+          <div 
+            className="relative w-full rounded-2xl overflow-hidden border border-amber-200/20"
+            style={{
+              aspectRatio: '16/9',
+              background: 'linear-gradient(135deg, rgba(0,0,0,0.5) 0%, rgba(26,26,46,0.8) 100%)',
+              boxShadow: '0 0 40px rgba(212,175,55,0.15), inset 0 0 60px rgba(0,0,0,0.3)',
+            }}
+          >
+            {chapter.videoUrl ? (
+              <video
+                src={chapter.videoUrl}
+                controls
+                className="w-full h-full object-contain"
+                onLoadedData={() => setVideoLoaded(true)}
+              />
+            ) : (
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-amber-200/60">
+                <motion.div
+                  animate={{ 
+                    scale: [1, 1.1, 1],
+                    opacity: [0.5, 1, 0.5],
+                  }}
+                  transition={{ duration: 3, repeat: Infinity }}
+                  className="mb-4"
+                >
+                  <Heart className="w-16 h-16" fill="currentColor" />
+                </motion.div>
+                <p className="font-body text-lg">Vídeo em breve...</p>
+                <p className="font-body text-sm mt-2 text-amber-200/40">
+                  Uma surpresa especial está sendo preparada
+                </p>
+              </div>
+            )}
+          </div>
+        </motion.div>
+
+        {/* Description - if any */}
+        {chapter.description && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="px-6 md:px-8 pb-6"
+          >
+            <p className="text-amber-100/80 font-body text-center text-lg leading-relaxed max-w-2xl mx-auto">
+              {chapter.description}
+            </p>
+          </motion.div>
+        )}
+
+        {/* Quote */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          className="px-6 md:px-8 pb-6"
+        >
+          <div className="max-w-xl mx-auto p-5 rounded-xl bg-gradient-to-br from-amber-900/20 to-purple-900/20 border border-amber-200/10">
+            <div className="flex items-start gap-3">
+              <Quote className="w-5 h-5 text-amber-300 flex-shrink-0 mt-1" />
+              <p className="font-body text-amber-100/70 italic text-lg">
+                {chapter.quote}
+              </p>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Memory box */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7 }}
+          className="px-6 md:px-8 pb-6"
+        >
+          <div className="max-w-xl mx-auto p-5 rounded-xl bg-gradient-to-br from-purple-900/30 to-indigo-900/30 border border-purple-300/10">
+            <div className="flex items-center gap-2 mb-3">
+              <Heart className="w-5 h-5 text-rose-300" fill="currentColor" />
+              <span className="font-display text-lg text-amber-100">Memória Eterna</span>
+            </div>
+            <p className="font-body text-amber-100/70 leading-relaxed">
+              {chapter.memory}
+            </p>
+          </div>
+        </motion.div>
+
+        {/* Spotify Player */}
+        {chapter.spotifyEmbedUrl && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8 }}
+            className="px-6 md:px-8 pb-8"
+          >
+            <div className="max-w-xl mx-auto">
+              <div className="flex items-center gap-2 mb-3">
+                <Music className="w-5 h-5 text-amber-300" />
+                <span className="font-display text-lg text-amber-100">Trilha Sonora</span>
+              </div>
+              <div className="rounded-xl overflow-hidden">
+                <iframe
+                  src={chapter.spotifyEmbedUrl}
+                  width="100%"
+                  height="152"
+                  frameBorder="0"
+                  allowFullScreen
+                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                  loading="lazy"
+                  className="rounded-xl"
+                />
+              </div>
+            </div>
+          </motion.div>
+        )}
+
+        {/* Footer */}
+        <div className="p-6 border-t border-amber-200/10 bg-black/20">
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={onClose}
+            className="w-full max-w-sm mx-auto block py-3.5 rounded-xl font-body font-semibold flex items-center justify-center gap-2 transition-all"
+            style={{
+              background: 'linear-gradient(135deg, rgba(212,175,55,0.3) 0%, rgba(147,112,219,0.3) 100%)',
+              border: '1px solid rgba(212,175,55,0.4)',
+              color: '#fef3c7',
+            }}
+          >
+            <Moon className="w-4 h-4" />
+            Guardar Esta Memória
+          </motion.button>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+};
+
+export default SecretChapterDetail;
