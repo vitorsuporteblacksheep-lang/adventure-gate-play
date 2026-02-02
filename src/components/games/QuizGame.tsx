@@ -72,6 +72,13 @@ const quizQuestions: Record<string, { question: string; options: string[]; corre
       correct: 1,
     },
   ],
+  'chapter-11': [
+    {
+      question: 'Qual cidade você queria mais conhecer no Brasil?',
+      options: ['São Paulo', 'Rio de Janeiro', 'Florianópolis', 'Curitiba'],
+      correct: 1,
+    },
+  ],
 };
 
 const QuizGame = ({ chapter, onComplete }: QuizGameProps) => {
