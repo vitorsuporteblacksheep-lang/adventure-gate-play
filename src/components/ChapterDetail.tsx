@@ -12,13 +12,19 @@ const ChapterDetail = ({ chapter, onClose }: ChapterDetailProps) => {
   const [showVideo, setShowVideo] = useState(false);
   const hasVideo = !!chapter.videoUrl;
 
+  // Autoplay Spotify URL
+  const spotifyAutoplayUrl = chapter.spotifyEmbedUrl 
+    ? chapter.spotifyEmbedUrl + (chapter.spotifyEmbedUrl.includes('?') ? '&autoplay=1' : '?autoplay=1')
+    : null;
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-wine-dark/60 backdrop-blur-md"
+      className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-wine-dark/60 backdrop-blur-md overscroll-none"
       onClick={onClose}
+      onTouchMove={(e) => e.stopPropagation()}
     >
       <motion.div
         initial={{ scale: 0.9, opacity: 0, y: 20 }}
@@ -160,7 +166,7 @@ const ChapterDetail = ({ chapter, onClose }: ChapterDetailProps) => {
                   <span className="font-display text-lg text-foreground">Trilha Sonora</span>
                 </div>
                 <iframe
-                  src={chapter.spotifyEmbedUrl}
+                  src={spotifyAutoplayUrl || ''}
                   width="100%"
                   height="152"
                   frameBorder="0"

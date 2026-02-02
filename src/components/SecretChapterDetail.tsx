@@ -11,16 +11,22 @@ interface SecretChapterDetailProps {
 const SecretChapterDetail = ({ chapter, onClose }: SecretChapterDetailProps) => {
   const [videoLoaded, setVideoLoaded] = useState(false);
 
+  // Autoplay Spotify URL
+  const spotifyAutoplayUrl = chapter.spotifyEmbedUrl 
+    ? chapter.spotifyEmbedUrl + (chapter.spotifyEmbedUrl.includes('?') ? '&autoplay=1' : '?autoplay=1')
+    : null;
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-start md:items-center justify-center p-4 overflow-y-auto py-8"
+      className="fixed inset-0 z-[60] flex items-start md:items-center justify-center p-4 overflow-y-auto py-8 overscroll-none"
       style={{
         background: 'linear-gradient(135deg, #0a0a12 0%, #1a1a2e 30%, #16213e 60%, #0f3460 100%)',
       }}
       onClick={onClose}
+      onTouchMove={(e) => e.stopPropagation()}
     >
       {/* Floating particles - Twilight atmosphere */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -243,7 +249,7 @@ const SecretChapterDetail = ({ chapter, onClose }: SecretChapterDetailProps) => 
               </div>
               <div className="rounded-xl overflow-hidden">
                 <iframe
-                  src={chapter.spotifyEmbedUrl}
+                  src={spotifyAutoplayUrl || ''}
                   width="100%"
                   height="80"
                   frameBorder="0"
