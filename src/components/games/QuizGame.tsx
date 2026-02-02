@@ -58,6 +58,13 @@ const quizQuestions: Record<string, { question: string; options: string[]; corre
       correct: 2,
     },
   ],
+  'chapter-9': [
+    {
+      question: 'Onde passamos o seu aniversário do ano passado?',
+      options: ['Outback', 'Jungle', 'Madero', 'Coco Bambu'],
+      correct: 1,
+    },
+  ],
 };
 
 const QuizGame = ({ chapter, onComplete }: QuizGameProps) => {
