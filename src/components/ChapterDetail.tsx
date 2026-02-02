@@ -125,16 +125,23 @@ const ChapterDetail = ({ chapter, onClose }: ChapterDetailProps) => {
               </div>
             </div>
 
-            {/* Music info */}
-            {chapter.musicUrl && (
-              <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
-                <div className="w-10 h-10 rounded-full bg-gradient-wine flex items-center justify-center">
-                  <Music className="w-5 h-5 text-primary-foreground" />
+            {/* Spotify Player */}
+            {chapter.spotifyEmbedUrl && (
+              <div className="rounded-xl overflow-hidden">
+                <div className="flex items-center gap-2 mb-3">
+                  <Music className="w-5 h-5 text-wine" />
+                  <span className="font-display text-lg text-foreground">Trilha Sonora</span>
                 </div>
-                <div>
-                  <p className="text-xs text-muted-foreground font-body">Trilha sonora deste capítulo</p>
-                  <p className="text-sm font-semibold text-foreground font-body">Céu Azul - Charlie Brown Jr.</p>
-                </div>
+                <iframe
+                  src={chapter.spotifyEmbedUrl}
+                  width="100%"
+                  height="152"
+                  frameBorder="0"
+                  allowFullScreen
+                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                  loading="lazy"
+                  className="rounded-xl"
+                />
               </div>
             )}
           </motion.div>
