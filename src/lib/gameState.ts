@@ -11,6 +11,7 @@ export interface ChapterData {
   gameCompleted: boolean;
   gameType: 'quiz' | 'memory' | 'puzzle' | 'sequence' | 'matching' | 'heart-catch';
   musicUrl?: string;
+  spotifyEmbedUrl?: string;
 }
 
 export interface GameState {
@@ -47,7 +48,8 @@ const defaultChapters: ChapterData[] = [
     unlocked: false,
     gameCompleted: false,
     gameType: 'quiz',
-    musicUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', // Placeholder - Céu Azul CBJR
+    musicUrl: 'https://www.youtube.com/watch?v=pMSwHRwbMEo',
+    spotifyEmbedUrl: 'https://open.spotify.com/embed/track/70dJEanFPdYuWZumkrnKeX?utm_source=generator',
   },
   {
     id: 'chapter-2',
