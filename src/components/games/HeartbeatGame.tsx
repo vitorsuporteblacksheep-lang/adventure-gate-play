@@ -120,40 +120,49 @@ const HeartbeatGame = ({ chapter, onComplete }: HeartbeatGameProps) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="space-y-6"
+            className="space-y-5"
           >
-            <div className="w-20 h-20 mx-auto rounded-full bg-gradient-wine flex items-center justify-center">
-              <Heart className="w-10 h-10 text-primary-foreground" fill="currentColor" />
-            </div>
+            <motion.div
+              animate={{ scale: [1, 1.1, 1] }}
+              transition={{ duration: 1.2, repeat: Infinity }}
+              className="w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-wine to-wine-dark flex items-center justify-center shadow-lg"
+            >
+              <Heart className="w-12 h-12 text-primary-foreground" fill="currentColor" />
+            </motion.div>
             
             <div>
               <h3 className="font-display text-2xl text-foreground mb-2">
-                Batimentos do Coração
+                💓 Batimentos do Coração
               </h3>
-              <p className="text-muted-foreground font-body">
-                Sinta o ritmo de um coração apaixonado e toque no momento certo!
+              <p className="text-muted-foreground font-body text-sm">
+                Sincronize seu toque com as batidas de um coração apaixonado
               </p>
             </div>
 
-            <div className="bg-muted/50 rounded-xl p-4 text-left space-y-2">
-              <p className="text-sm text-muted-foreground font-body">
-                💓 Observe o coração pulsando
-              </p>
-              <p className="text-sm text-muted-foreground font-body">
-                👆 Toque no ritmo das batidas
-              </p>
-              <p className="text-sm text-muted-foreground font-body">
-                ✨ Acerte {requiredScore} batidas para desbloquear
-              </p>
+            <div className="bg-gradient-to-br from-wine/5 to-gold/5 rounded-xl p-4 border border-wine/10">
+              <div className="space-y-3 text-left">
+                <div className="flex items-center gap-3">
+                  <span className="text-xl">👀</span>
+                  <p className="text-sm text-foreground/80 font-body">Observe o coração pulsando</p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <span className="text-xl">👆</span>
+                  <p className="text-sm text-foreground/80 font-body">Toque no momento exato da batida</p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <span className="text-xl">🎯</span>
+                  <p className="text-sm text-foreground/80 font-body">Acerte {requiredScore} batidas para desbloquear</p>
+                </div>
+              </div>
             </div>
 
             <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
               onClick={startGame}
-              className="w-full py-4 bg-gradient-wine text-primary-foreground rounded-xl font-display text-lg shadow-wine"
+              className="w-full py-4 bg-gradient-to-r from-wine to-wine-dark text-primary-foreground rounded-xl font-display text-lg shadow-lg"
             >
-              Começar 💕
+              Sentir o Ritmo 💕
             </motion.button>
           </motion.div>
         )}
@@ -164,51 +173,81 @@ const HeartbeatGame = ({ chapter, onComplete }: HeartbeatGameProps) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="space-y-6"
+            className="space-y-4"
           >
-            {/* Progress */}
+            {/* Progress bar */}
             <div className="space-y-2">
-              <div className="flex justify-between text-sm font-body">
-                <span className="text-muted-foreground">Batidas: {score}/{requiredScore}</span>
-                {combo > 2 && (
-                  <span className="text-gold font-semibold">Combo x{combo}! 🔥</span>
-                )}
+              <div className="flex justify-between items-center text-sm font-body">
+                <span className="text-foreground font-medium">
+                  💓 {score}/{requiredScore}
+                </span>
+                <AnimatePresence mode="wait">
+                  {combo > 2 && (
+                    <motion.span
+                      key={combo}
+                      initial={{ scale: 0.5, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      exit={{ scale: 1.5, opacity: 0 }}
+                      className="text-gold font-bold flex items-center gap-1"
+                    >
+                      🔥 Combo x{combo}!
+                    </motion.span>
+                  )}
+                </AnimatePresence>
               </div>
-              <div className="h-2 bg-muted rounded-full overflow-hidden">
+              <div className="h-3 bg-muted rounded-full overflow-hidden shadow-inner">
                 <motion.div
-                  className="h-full bg-gradient-wine rounded-full"
+                  className="h-full bg-gradient-to-r from-wine to-gold rounded-full"
                   initial={{ width: 0 }}
                   animate={{ width: `${(score / requiredScore) * 100}%` }}
+                  transition={{ type: 'spring', stiffness: 100 }}
                 />
               </div>
             </div>
 
-            {/* Heart button */}
-            <div className="relative py-8">
-              {/* Pulse rings */}
+            {/* Main heart area */}
+            <div className="relative py-6">
+              {/* Outer pulse ring */}
               <motion.div
-                className="absolute inset-0 flex items-center justify-center"
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-44 h-44 rounded-full border-2 border-wine/20"
                 animate={{
-                  scale: [1, 1.5, 1],
-                  opacity: [0.5, 0, 0.5],
+                  scale: [1, 1.3],
+                  opacity: [0.6, 0],
                 }}
                 transition={{
                   duration: beatInterval / 1000,
                   repeat: Infinity,
                   ease: "easeOut",
                 }}
-              >
-                <div className="w-40 h-40 rounded-full border-2 border-wine/30" />
-              </motion.div>
+              />
+              
+              {/* Inner pulse ring */}
+              <motion.div
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-36 h-36 rounded-full border border-gold/30"
+                animate={{
+                  scale: [1, 1.2],
+                  opacity: [0.4, 0],
+                }}
+                transition={{
+                  duration: beatInterval / 1000,
+                  repeat: Infinity,
+                  ease: "easeOut",
+                  delay: 0.1,
+                }}
+              />
 
+              {/* Heart button */}
               <motion.button
                 onClick={handleTap}
                 style={{ scale: heartScale }}
-                className="relative w-32 h-32 mx-auto rounded-full bg-gradient-wine flex items-center justify-center shadow-wine cursor-pointer active:brightness-110 transition-all"
-                whileTap={{ scale: heartScale * 0.9 }}
+                className="relative w-28 h-28 mx-auto rounded-full bg-gradient-to-br from-wine via-wine to-wine-dark flex items-center justify-center shadow-xl cursor-pointer border-4 border-wine/30"
+                whileTap={{ scale: heartScale * 0.85 }}
               >
+                {/* Glow effect */}
+                <div className="absolute inset-0 rounded-full bg-wine/20 blur-xl" />
+                
                 <Heart 
-                  className="w-16 h-16 text-primary-foreground drop-shadow-lg" 
+                  className="w-14 h-14 text-primary-foreground drop-shadow-lg relative z-10" 
                   fill="currentColor" 
                 />
                 
@@ -216,18 +255,13 @@ const HeartbeatGame = ({ chapter, onComplete }: HeartbeatGameProps) => {
                 <AnimatePresence>
                   {feedback && (
                     <motion.div
-                      initial={{ scale: 0.5, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      exit={{ scale: 1.5, opacity: 0 }}
-                      className={`absolute inset-0 rounded-full flex items-center justify-center ${
-                        feedback === 'perfect' 
-                          ? 'bg-gold/30' 
-                          : feedback === 'good' 
-                          ? 'bg-wine/30' 
-                          : 'bg-muted/50'
-                      }`}
+                      initial={{ scale: 0, opacity: 0 }}
+                      animate={{ scale: 1.2, opacity: 1 }}
+                      exit={{ scale: 2, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="absolute inset-0 rounded-full flex items-center justify-center z-20"
                     >
-                      <span className="text-2xl font-display text-primary-foreground">
+                      <span className="text-4xl drop-shadow-lg">
                         {feedback === 'perfect' && '💖'}
                         {feedback === 'good' && '💕'}
                         {feedback === 'miss' && '💔'}
@@ -237,27 +271,30 @@ const HeartbeatGame = ({ chapter, onComplete }: HeartbeatGameProps) => {
                 </AnimatePresence>
               </motion.button>
 
-              {/* Timing guide */}
-              <div className="mt-4 text-center">
-                <p className="text-sm text-muted-foreground font-body">
-                  Toque quando o coração pulsar!
-                </p>
-              </div>
+              {/* Instruction */}
+              <motion.p 
+                className="mt-5 text-sm text-muted-foreground font-body"
+                animate={{ opacity: [0.5, 1, 0.5] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                Toque no ritmo do coração!
+              </motion.p>
             </div>
 
-            {/* Visual beat indicator */}
-            <div className="flex justify-center gap-2">
+            {/* Beat indicator dots */}
+            <div className="flex justify-center items-center gap-3">
+              <span className="text-xs text-muted-foreground font-body">Ritmo:</span>
               {[0, 1, 2, 3].map((i) => (
                 <motion.div
                   key={i}
-                  className="w-3 h-3 rounded-full bg-wine/30"
+                  className="w-2.5 h-2.5 rounded-full"
                   animate={{
-                    backgroundColor: beatPhase < 0.15 && i === 0 
-                      ? 'hsl(var(--wine))' 
-                      : 'hsl(var(--wine) / 0.3)',
-                    scale: beatPhase < 0.15 && i === 0 ? 1.3 : 1,
+                    backgroundColor: beatPhase < 0.15 
+                      ? (i === 0 ? 'hsl(var(--wine))' : 'hsl(var(--muted))') 
+                      : 'hsl(var(--muted))',
+                    scale: beatPhase < 0.15 && i === 0 ? 1.5 : 1,
                   }}
-                  transition={{ duration: 0.1 }}
+                  transition={{ duration: 0.05 }}
                 />
               ))}
             </div>
@@ -269,19 +306,14 @@ const HeartbeatGame = ({ chapter, onComplete }: HeartbeatGameProps) => {
             key="success"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="space-y-6 py-8"
+            className="space-y-5 py-6"
           >
             <motion.div
-              animate={{ 
-                scale: [1, 1.2, 1],
-              }}
-              transition={{ 
-                duration: 0.6,
-                repeat: Infinity,
-              }}
-              className="w-24 h-24 mx-auto rounded-full bg-gradient-wine flex items-center justify-center shadow-wine"
+              animate={{ scale: [1, 1.15, 1] }}
+              transition={{ duration: 0.8, repeat: Infinity }}
+              className="w-28 h-28 mx-auto rounded-full bg-gradient-to-br from-wine to-gold flex items-center justify-center shadow-xl"
             >
-              <Heart className="w-12 h-12 text-primary-foreground" fill="currentColor" />
+              <Heart className="w-14 h-14 text-primary-foreground" fill="currentColor" />
             </motion.div>
 
             <div>
@@ -293,13 +325,13 @@ const HeartbeatGame = ({ chapter, onComplete }: HeartbeatGameProps) => {
               </p>
             </div>
 
-            <div className="flex justify-center gap-2">
+            <div className="flex justify-center gap-3">
               {[...Array(5)].map((_, i) => (
                 <motion.div
                   key={i}
                   initial={{ scale: 0, rotate: -180 }}
                   animate={{ scale: 1, rotate: 0 }}
-                  transition={{ delay: i * 0.1 }}
+                  transition={{ delay: i * 0.1, type: 'spring' }}
                 >
                   <Sparkles className="w-6 h-6 text-gold" />
                 </motion.div>
