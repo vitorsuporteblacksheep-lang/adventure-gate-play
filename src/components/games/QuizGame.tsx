@@ -53,13 +53,19 @@ const QuizGame = ({ chapter, onComplete }: QuizGameProps) => {
     setShowResult(true);
 
     setTimeout(() => {
-      if (currentQuestion + 1 < questions.length) {
-        setCurrentQuestion(currentQuestion + 1);
+      if (isCorrect) {
+        if (currentQuestion + 1 < questions.length) {
+          setCurrentQuestion(currentQuestion + 1);
+          setSelectedAnswer(null);
+          setShowResult(false);
+        } else {
+          setCompleted(true);
+          setTimeout(onComplete, 1500);
+        }
+      } else {
+        // Wrong answer - reset to try again
         setSelectedAnswer(null);
         setShowResult(false);
-      } else {
-        setCompleted(true);
-        setTimeout(onComplete, 1500);
       }
     }, 1500);
   };
