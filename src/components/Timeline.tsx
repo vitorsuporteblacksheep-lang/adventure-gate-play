@@ -75,20 +75,27 @@ const Timeline = ({
   const handleRevealComplete = () => {
     setShowReveal(false);
     if (revealChapter) {
-      // Check if this was the final chapter (chapter-11) - trigger secret reveal
-      if (revealChapter.isFinalChapter && secretChapterData) {
-        setTimeout(() => {
-          setSecretChapter(secretChapterData);
-          setShowSecretReveal(true);
-          // Unlock secret chapter in state
-          const updatedChapters = gameState.chapters.map(ch => 
-            ch.id === 'chapter-12' ? { ...ch, unlocked: true, gameCompleted: true } : ch
-          );
-          onStateChange({ ...gameState, chapters: updatedChapters });
-        }, 500);
-      }
       setTimeout(() => setSelectedChapter(revealChapter), 300);
       setRevealChapter(null);
+    }
+  };
+
+  // Handle closing chapter detail - triggers secret reveal for chapter 11
+  const handleCloseChapterDetail = () => {
+    const closingChapter = selectedChapter;
+    setSelectedChapter(null);
+    
+    // If closing chapter 11, trigger secret reveal
+    if (closingChapter?.isFinalChapter && secretChapterData && !secretUnlocked) {
+      setTimeout(() => {
+        setSecretChapter(secretChapterData);
+        setShowSecretReveal(true);
+        // Unlock secret chapter in state
+        const updatedChapters = gameState.chapters.map(ch => 
+          ch.id === 'chapter-12' ? { ...ch, unlocked: true, gameCompleted: true } : ch
+        );
+        onStateChange({ ...gameState, chapters: updatedChapters });
+      }, 800);
     }
   };
 
@@ -380,7 +387,7 @@ const Timeline = ({
         {selectedChapter && !selectedChapter.isSecret && !showSecretDetail && (
           <ChapterDetail
             chapter={selectedChapter}
-            onClose={() => setSelectedChapter(null)}
+            onClose={handleCloseChapterDetail}
           />
         )}
       </AnimatePresence>
