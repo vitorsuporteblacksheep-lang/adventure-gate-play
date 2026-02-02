@@ -1,6 +1,6 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, Lock, ChevronRight, Gamepad2, Play, Pause, Volume2, Sparkles, Quote } from 'lucide-react';
+import { Heart, Lock, ChevronRight, Gamepad2, Play, Sparkles, Quote } from 'lucide-react';
 import { ChapterData, GameState, completeChapterGame } from '@/lib/gameState';
 import ChapterDetail from './ChapterDetail';
 import ChapterGame from './games/ChapterGame';
@@ -14,15 +14,6 @@ interface TimelineProps {
   onStateChange: (state: GameState) => void;
 }
 
-// Background music URLs (royalty-free romantic music)
-const chapterMusic = [
-  'https://assets.mixkit.co/music/preview/mixkit-serene-view-443.mp3',
-  'https://assets.mixkit.co/music/preview/mixkit-a-very-happy-christmas-897.mp3',
-  'https://assets.mixkit.co/music/preview/mixkit-feeling-happy-5.mp3',
-  'https://assets.mixkit.co/music/preview/mixkit-dreaming-big-31.mp3',
-  'https://assets.mixkit.co/music/preview/mixkit-sun-and-his-daughter-580.mp3',
-  'https://assets.mixkit.co/music/preview/mixkit-sweet-love-138.mp3',
-];
 
 const Timeline = ({ 
   chapters, 
@@ -36,8 +27,6 @@ const Timeline = ({
   const [showReveal, setShowReveal] = useState(false);
   const [revealChapter, setRevealChapter] = useState<ChapterData | null>(null);
   const [playingChapterId, setPlayingChapterId] = useState<string | null>(null);
-  const [playingMusicId, setPlayingMusicId] = useState<string | null>(null);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const handleChapterClick = (chapter: ChapterData) => {
     if (!chapter.unlocked) return;
@@ -78,20 +67,18 @@ const Timeline = ({
     setPlayingChapterId(null);
   };
 
-  const toggleMusic = (chapterId: string, index: number) => {
-    if (playingMusicId === chapterId) {
-      audioRef.current?.pause();
-      setPlayingMusicId(null);
-    } else {
-      if (audioRef.current) {
-        audioRef.current.pause();
-      }
-      audioRef.current = new Audio(chapterMusic[index]);
-      audioRef.current.volume = 0.3;
-      audioRef.current.loop = true;
-      audioRef.current.play();
-      setPlayingMusicId(chapterId);
-    }
+  // YouTube links for each chapter's song
+  const chapterYouTubeLinks = [
+    'https://www.youtube.com/watch?v=pMSwHRwbMEo', // Céu Azul - Charlie Brown Jr
+    'https://www.youtube.com/watch?v=dQw4w9WgXcQ', // Placeholder
+    'https://www.youtube.com/watch?v=dQw4w9WgXcQ', // Placeholder
+    'https://www.youtube.com/watch?v=dQw4w9WgXcQ', // Placeholder
+    'https://www.youtube.com/watch?v=dQw4w9WgXcQ', // Placeholder
+    'https://www.youtube.com/watch?v=dQw4w9WgXcQ', // Placeholder
+  ];
+
+  const openMusic = (index: number) => {
+    window.open(chapterYouTubeLinks[index], '_blank');
   };
 
   const playingChapter = chapters.find(ch => ch.id === playingChapterId);
@@ -236,25 +223,12 @@ const Timeline = ({
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
-                        toggleMusic(chapter.id, index);
+                        openMusic(index);
                       }}
-                      className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold font-body transition-all ${
-                        playingMusicId === chapter.id
-                          ? 'bg-wine text-primary-foreground'
-                          : 'bg-wine/10 text-wine hover:bg-wine/20'
-                      }`}
+                      className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold font-body transition-all bg-wine/10 text-wine hover:bg-wine/20"
                     >
-                      {playingMusicId === chapter.id ? (
-                        <>
-                          <Pause className="w-3.5 h-3.5" />
-                          Pausar Música
-                        </>
-                      ) : (
-                        <>
-                          <Play className="w-3.5 h-3.5" />
-                          Tocar Música
-                        </>
-                      )}
+                      <Play className="w-3.5 h-3.5" />
+                      Ouvir Música
                     </button>
                   )}
                 </div>
@@ -269,20 +243,6 @@ const Timeline = ({
         ))}
       </div>
 
-      {/* Music indicator */}
-      <AnimatePresence>
-        {playingMusicId && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            className="fixed bottom-24 left-1/2 -translate-x-1/2 px-4 py-2 bg-wine text-primary-foreground rounded-full shadow-wine flex items-center gap-2 z-40"
-          >
-            <Volume2 className="w-4 h-4 animate-pulse" />
-            <span className="text-sm font-body">♪ Música tocando...</span>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       {/* Chapter Detail Modal */}
       <AnimatePresence>
