@@ -151,6 +151,20 @@ const defaultChapters: ChapterData[] = [
     gameType: 'quiz',
     spotifyEmbedUrl: 'https://open.spotify.com/embed/track/0hfRYnxJr8tUKBELhkAyXQ?utm_source=generator',
   },
+  {
+    id: 'chapter-9',
+    title: 'O Seu Aniversário a 1 Ano Atrás',
+    date: '+ 1 Ano da minha Nat',
+    description: 'Há um ano, celebrávamos mais um ano da sua vida, minha princesa. Essa lembrança guarda todas as nossas comemorações mais íntimas e só nossas memórias que eu quero que você carregue com você por toda a vida, minha sereia.',
+    memory: 'Memórias íntimas que só nós sabemos 💕',
+    quote: '"Esse é dedicado as lembranças que só nós sabemos"',
+    icon: '🎂',
+    image: '/chapters/chapter-9.jpeg',
+    unlocked: false,
+    gameCompleted: false,
+    gameType: 'quiz',
+    spotifyEmbedUrl: 'https://open.spotify.com/embed/track/75zIfJpcYFYHSBMVlmdiYc?utm_source=generator',
+  },
 ];
 
 const defaultState: GameState = {
