@@ -1,5 +1,6 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { X, Heart, Calendar, Quote, Sparkles, Music, Clock, MapPin } from 'lucide-react';
+import { X, Heart, Calendar, Quote, Sparkles, Music, Clock, MapPin, Image, Video } from 'lucide-react';
 import { ChapterData } from '@/lib/gameState';
 
 interface ChapterDetailProps {
@@ -8,6 +9,9 @@ interface ChapterDetailProps {
 }
 
 const ChapterDetail = ({ chapter, onClose }: ChapterDetailProps) => {
+  const [showVideo, setShowVideo] = useState(false);
+  const hasVideo = !!chapter.videoUrl;
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -23,24 +27,47 @@ const ChapterDetail = ({ chapter, onClose }: ChapterDetailProps) => {
         onClick={(e) => e.stopPropagation()}
         className="bg-gradient-card rounded-2xl max-w-md w-full shadow-card border border-wine/20 max-h-[90vh] overflow-hidden"
       >
-        {/* Header with photo or gradient */}
+        {/* Header with photo/video or gradient */}
         <div className="relative">
           {chapter.image ? (
             <div className="relative h-56 overflow-hidden">
-              <img 
-                src={chapter.image} 
-                alt={chapter.title}
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-wine-dark via-wine-dark/40 to-transparent" />
+              {showVideo && chapter.videoUrl ? (
+                <video
+                  src={chapter.videoUrl}
+                  controls
+                  autoPlay
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <img 
+                  src={chapter.image} 
+                  alt={chapter.title}
+                  className="w-full h-full object-cover"
+                />
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-wine-dark via-wine-dark/40 to-transparent pointer-events-none" />
               
-              {/* Close button */}
-              <button
-                onClick={onClose}
-                className="absolute right-4 top-4 p-2 rounded-full bg-black/30 hover:bg-black/50 transition-colors backdrop-blur-sm"
-              >
-                <X className="w-5 h-5 text-white" />
-              </button>
+              {/* Top buttons */}
+              <div className="absolute right-4 top-4 flex items-center gap-2">
+                {hasVideo && (
+                  <button
+                    onClick={() => setShowVideo(!showVideo)}
+                    className="p-2 rounded-full bg-black/30 hover:bg-black/50 transition-colors backdrop-blur-sm"
+                  >
+                    {showVideo ? (
+                      <Image className="w-5 h-5 text-white" />
+                    ) : (
+                      <Video className="w-5 h-5 text-white" />
+                    )}
+                  </button>
+                )}
+                <button
+                  onClick={onClose}
+                  className="p-2 rounded-full bg-black/30 hover:bg-black/50 transition-colors backdrop-blur-sm"
+                >
+                  <X className="w-5 h-5 text-white" />
+                </button>
+              </div>
 
               {/* Title overlay */}
               <div className="absolute bottom-0 left-0 right-0 p-6">
