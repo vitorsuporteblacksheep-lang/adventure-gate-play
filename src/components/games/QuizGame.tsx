@@ -65,6 +65,13 @@ const quizQuestions: Record<string, { question: string; options: string[]; corre
       correct: 1,
     },
   ],
+  'chapter-10': [
+    {
+      question: 'Do que eu estava fantasiado no carnaval?',
+      options: ['Mickey Mouse', 'Minnie Mouse', 'Pirata', 'Super-Herói'],
+      correct: 1,
+    },
+  ],
 };
 
 const QuizGame = ({ chapter, onComplete }: QuizGameProps) => {
