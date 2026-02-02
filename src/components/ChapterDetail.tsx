@@ -161,10 +161,14 @@ const ChapterDetail = ({ chapter, onClose }: ChapterDetailProps) => {
             {/* Spotify Player */}
             {chapter.spotifyEmbedUrl && (
               <div className="rounded-xl overflow-hidden">
-                <div className="flex items-center gap-2 mb-3">
+                <div className="flex items-center gap-2 mb-2">
                   <Music className="w-5 h-5 text-wine" />
                   <span className="font-display text-lg text-foreground">Trilha Sonora</span>
                 </div>
+                <p className="text-xs text-muted-foreground mb-2 flex items-center gap-1">
+                  <span className="inline-block w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                  Dê play para ouvir nossa música
+                </p>
                 <iframe
                   src={spotifyAutoplayUrl || ''}
                   width="100%"

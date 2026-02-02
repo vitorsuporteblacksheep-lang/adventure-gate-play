@@ -243,10 +243,14 @@ const SecretChapterDetail = ({ chapter, onClose }: SecretChapterDetailProps) => 
             className="px-4 md:px-6 pb-4"
           >
             <div className="max-w-lg mx-auto">
-              <div className="flex items-center gap-2 mb-2">
+            <div className="flex items-center gap-2 mb-1">
                 <Music className="w-4 h-4 text-amber-300" />
                 <span className="font-display text-base text-amber-100">Trilha Sonora</span>
               </div>
+              <p className="text-xs text-amber-200/60 mb-2 flex items-center gap-1">
+                <span className="inline-block w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                Dê play para ouvir nossa música
+              </p>
               <div className="rounded-xl overflow-hidden">
                 <iframe
                   src={spotifyAutoplayUrl || ''}
