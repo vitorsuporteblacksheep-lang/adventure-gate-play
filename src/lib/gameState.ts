@@ -137,6 +137,20 @@ const defaultChapters: ChapterData[] = [
     gameType: 'quiz',
     spotifyEmbedUrl: 'https://open.spotify.com/embed/track/6NFyWDv5CjfwuzoCkw47Xf?utm_source=generator',
   },
+  {
+    id: 'chapter-8',
+    title: 'Nossa Primeira Viagem em Casal (Sozinhos)',
+    date: 'Salvador',
+    description: 'Ahh Salvador, essa foi a nossa primeira viagem em casal maravilhosa que fizemos, o nosso primeiro ninho de amor, essa viagem foi simplesmente incrível, todos os momentos, tudo foi incrível, desde o Airbnb até os pontos turísticos, ficou marcada na minha mente como inesquecível.',
+    memory: 'Nosso primeiro ninho de amor 💕',
+    quote: '"A beleza de Salvador só não é mais que a sua"',
+    icon: '✈️',
+    image: '/chapters/chapter-8.jpeg',
+    unlocked: false,
+    gameCompleted: false,
+    gameType: 'quiz',
+    spotifyEmbedUrl: 'https://open.spotify.com/embed/track/0hfRYnxJr8tUKBELhkAyXQ?utm_source=generator',
+  },
 ];
 
 const defaultState: GameState = {
