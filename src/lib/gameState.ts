@@ -7,6 +7,7 @@ export interface ChapterData {
   quote: string;
   icon: string;
   image?: string;
+  videoUrl?: string;
   unlocked: boolean;
   gameCompleted: boolean;
   gameType: 'quiz' | 'memory' | 'puzzle' | 'sequence' | 'matching' | 'heart-catch' | 'heartbeat';
@@ -104,20 +105,23 @@ const defaultChapters: ChapterData[] = [
     image: '/chapters/chapter-5.jpeg',
     unlocked: false,
     gameCompleted: false,
-    gameType: 'puzzle',
+    gameType: 'quiz',
     spotifyEmbedUrl: 'https://open.spotify.com/embed/track/0CmNyrWG37EMIb6d2wspuJ?utm_source=generator',
   },
   {
     id: 'chapter-6',
-    title: 'Promessas de Amor',
-    date: 'Dezembro 2023',
-    description: 'O momento em que juramos estar juntos para sempre.',
-    memory: 'Você é meu presente, meu futuro, minha eternidade. Com você, cada dia é uma nova razão para sorrir.',
-    quote: '"O amor verdadeiro não tem final feliz, porque o amor verdadeiro nunca acaba."',
+    title: 'O Pedido de Namoro',
+    date: 'Setembro de 2025',
+    description: 'Esse foi um dos dias em que eu mais fiquei nervoso na vida. O dia em que eu te pedi para ser minha namorada. Um dia que eu esperei por tanto tempo… e que nós dois, mesmo sem dizer, também esperávamos. Nosso primeiro namoro. Obrigado por ter sido uma das melhores escolhas da minha vida. Desde então, eu tenho ao meu lado a pessoa mais especial que eu poderia chamar de namorada.',
+    memory: 'Te amo Nataly, obrigado por ser minha namorada 💕',
+    quote: '"Te amo Nataly, obrigado por ser minha namorada"',
     icon: '💍',
+    image: '/chapters/chapter-6.jpeg',
+    videoUrl: '/chapters/chapter-6.mp4',
     unlocked: false,
     gameCompleted: false,
-    gameType: 'heart-catch',
+    gameType: 'quiz',
+    spotifyEmbedUrl: 'https://open.spotify.com/embed/track/4y93vvzu2h8MITw7YyUTcI?utm_source=generator',
   },
 ];
 

@@ -30,6 +30,20 @@ const quizQuestions: Record<string, { question: string; options: string[]; corre
       correct: 1,
     },
   ],
+  'chapter-5': [
+    {
+      question: 'Qual foi a primeira festa que saímos como um casal?',
+      options: ['Carnaval', 'Beco', 'Festa Junina', 'Réveillon'],
+      correct: 1,
+    },
+  ],
+  'chapter-6': [
+    {
+      question: 'De quem era o show no dia do seu pedido de namoro?',
+      options: ['Jorge e Mateus', 'Henrique e Juliano', 'Marília Mendonça', 'Gusttavo Lima'],
+      correct: 1,
+    },
+  ],
 };
 
 const QuizGame = ({ chapter, onComplete }: QuizGameProps) => {
