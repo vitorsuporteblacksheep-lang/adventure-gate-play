@@ -61,7 +61,7 @@ const SecretChapterReveal = ({ chapter, onComplete }: SecretChapterRevealProps) 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto"
       style={{
         background: 'linear-gradient(135deg, #0a0a12 0%, #1a1a2e 30%, #16213e 60%, #0f3460 100%)',
       }}
@@ -199,14 +199,14 @@ const SecretChapterReveal = ({ chapter, onComplete }: SecretChapterRevealProps) 
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ type: 'spring', damping: 10 }}
-            className="text-center max-w-lg px-4"
+            className="text-center max-w-md px-4"
           >
             {/* Glowing orb animation */}
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: [0, 1.2, 1] }}
               transition={{ duration: 1, times: [0, 0.6, 1] }}
-              className="relative mb-8"
+              className="relative mb-6"
             >
               {/* Outer glow */}
               <div 
@@ -219,18 +219,18 @@ const SecretChapterReveal = ({ chapter, onComplete }: SecretChapterRevealProps) 
               
               {/* Inner icon */}
               <div 
-                className="relative inline-flex items-center justify-center w-32 h-32 rounded-full"
+                className="relative inline-flex items-center justify-center w-24 h-24 md:w-28 md:h-28 rounded-full"
                 style={{
                   background: 'linear-gradient(135deg, rgba(212,175,55,0.5) 0%, rgba(147,112,219,0.5) 100%)',
                   border: '2px solid rgba(254,243,199,0.4)',
-                  boxShadow: '0 0 60px rgba(212,175,55,0.5)',
+                  boxShadow: '0 0 40px rgba(212,175,55,0.5)',
                 }}
               >
                 <motion.div
                   animate={{ rotate: 360 }}
                   transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
                 >
-                  <Moon className="w-16 h-16" style={{ color: '#fef3c7' }} />
+                  <Moon className="w-12 h-12 md:w-14 md:h-14" style={{ color: '#fef3c7' }} />
                 </motion.div>
               </div>
 
@@ -250,8 +250,8 @@ const SecretChapterReveal = ({ chapter, onComplete }: SecretChapterRevealProps) 
                     transformOrigin: '0 0',
                   }}
                 >
-                  <div style={{ transform: `rotate(${deg}deg) translateX(80px)` }}>
-                    <Heart className="w-6 h-6" fill="#D4AF37" style={{ color: '#D4AF37' }} />
+                  <div style={{ transform: `rotate(${deg}deg) translateX(60px)` }}>
+                    <Heart className="w-5 h-5" fill="#D4AF37" style={{ color: '#D4AF37' }} />
                   </div>
                 </motion.div>
               ))}
@@ -271,12 +271,11 @@ const SecretChapterReveal = ({ chapter, onComplete }: SecretChapterRevealProps) 
               </div>
 
               <h2 
-                className="font-display text-4xl md:text-5xl mb-4"
+                className="font-display text-3xl md:text-4xl mb-3"
                 style={{ 
                   background: 'linear-gradient(135deg, #fef3c7 0%, #D4AF37 50%, #9370DB 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
-                  textShadow: '0 0 40px rgba(212,175,55,0.3)',
                 }}
               >
                 {chapter.title}
@@ -292,7 +291,7 @@ const SecretChapterReveal = ({ chapter, onComplete }: SecretChapterRevealProps) 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 2.5 }}
-              className="mt-8 flex items-center justify-center gap-2"
+              className="mt-6 flex items-center justify-center gap-2"
               style={{ color: 'rgba(254,243,199,0.5)' }}
             >
               <div 
