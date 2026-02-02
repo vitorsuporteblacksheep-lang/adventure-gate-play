@@ -12,9 +12,9 @@ const ChapterDetail = ({ chapter, onClose }: ChapterDetailProps) => {
   const [showVideo, setShowVideo] = useState(false);
   const hasVideo = !!chapter.videoUrl;
 
-  // Autoplay Spotify URL
+  // Autoplay Spotify URL - using theme=0 and autoplay=true for better compatibility
   const spotifyAutoplayUrl = chapter.spotifyEmbedUrl 
-    ? chapter.spotifyEmbedUrl + (chapter.spotifyEmbedUrl.includes('?') ? '&autoplay=1' : '?autoplay=1')
+    ? chapter.spotifyEmbedUrl + (chapter.spotifyEmbedUrl.includes('?') ? '&theme=0&autoplay=true' : '?theme=0&autoplay=true')
     : null;
 
   return (
