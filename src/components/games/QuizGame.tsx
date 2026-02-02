@@ -15,14 +15,18 @@ const quizQuestions: Record<string, { question: string; options: string[]; corre
       options: ['Borboletas no estômago', 'Indiferença', 'Curiosidade', 'Um amor instantâneo'],
       correct: 0,
     },
+  ],
+  'chapter-3': [
     {
-      question: 'Qual é a cor dos meus olhos?',
-      options: ['Azuis como o céu', 'Castanhos como mel', 'Verdes como esmeralda', 'Pretos como a noite'],
+      question: 'Qual foi o primeiro filme que assistimos juntos?',
+      options: ['Vingadores: Ultimato', 'Thor: Amor e Trovão', 'Homem-Aranha: Sem Volta para Casa', 'Doutor Estranho 2'],
       correct: 1,
     },
+  ],
+  'chapter-4': [
     {
-      question: 'O amor verdadeiro é...',
-      options: ['Passageiro', 'Eterno ❤️', 'Difícil', 'Impossível'],
+      question: 'Qual o primeiro jogo que jogamos juntos?',
+      options: ['The Last of Us', 'Until Dawn', 'Resident Evil', 'It Takes Two'],
       correct: 1,
     },
   ],
