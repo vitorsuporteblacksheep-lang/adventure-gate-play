@@ -191,6 +191,7 @@ const defaultChapters: ChapterData[] = [
     unlocked: false,
     gameCompleted: false,
     gameType: 'quiz',
+    spotifyEmbedUrl: 'https://open.spotify.com/embed/track/2vTDA7mOYWtuduCylWfiFd?utm_source=generator',
   },
 ];
 
