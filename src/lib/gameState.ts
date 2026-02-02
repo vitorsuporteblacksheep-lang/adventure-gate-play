@@ -165,6 +165,20 @@ const defaultChapters: ChapterData[] = [
     gameType: 'quiz',
     spotifyEmbedUrl: 'https://open.spotify.com/embed/track/75zIfJpcYFYHSBMVlmdiYc?utm_source=generator',
   },
+  {
+    id: 'chapter-10',
+    title: 'Nossa Primeira Fantasia de Carnaval Juntos',
+    date: 'Fevereiro de 2024',
+    description: 'Essa é uma lembrança do nosso primeiro Carnaval fantasiados. Foi maravilhoso e tem tudo a ver com você, com a sua energia, com a vibe do seu mês de fevereiro.',
+    memory: 'Você era a mulher mais linda de todo o lugar 💕',
+    quote: '"Você era a mulher mais linda de todo o lugar"',
+    icon: '🎭',
+    image: '/chapters/chapter-10.jpeg',
+    unlocked: false,
+    gameCompleted: false,
+    gameType: 'quiz',
+    spotifyEmbedUrl: 'https://open.spotify.com/embed/track/6xLka4rZhf5O0IWf0qLk4A?utm_source=generator',
+  },
 ];
 
 const defaultState: GameState = {
