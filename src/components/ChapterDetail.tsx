@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { X, Heart, Calendar, Quote, Sparkles } from 'lucide-react';
+import { X, Heart, Calendar, Quote, Sparkles, Music, Clock, MapPin } from 'lucide-react';
 import { ChapterData } from '@/lib/gameState';
 
 interface ChapterDetailProps {
@@ -21,38 +21,80 @@ const ChapterDetail = ({ chapter, onClose }: ChapterDetailProps) => {
         animate={{ scale: 1, opacity: 1, y: 0 }}
         exit={{ scale: 0.9, opacity: 0, y: 20 }}
         onClick={(e) => e.stopPropagation()}
-        className="bg-gradient-card rounded-2xl max-w-md w-full shadow-card border border-wine/20 max-h-[85vh] overflow-hidden"
+        className="bg-gradient-card rounded-2xl max-w-md w-full shadow-card border border-wine/20 max-h-[90vh] overflow-hidden"
       >
-        {/* Header with gradient */}
-        <div className="bg-gradient-wine p-6 text-center relative">
-          <button
-            onClick={onClose}
-            className="absolute right-4 top-4 p-2 rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-colors"
-          >
-            <X className="w-5 h-5 text-primary-foreground" />
-          </button>
+        {/* Header with photo or gradient */}
+        <div className="relative">
+          {chapter.image ? (
+            <div className="relative h-56 overflow-hidden">
+              <img 
+                src={chapter.image} 
+                alt={chapter.title}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-wine-dark via-wine-dark/40 to-transparent" />
+              
+              {/* Close button */}
+              <button
+                onClick={onClose}
+                className="absolute right-4 top-4 p-2 rounded-full bg-black/30 hover:bg-black/50 transition-colors backdrop-blur-sm"
+              >
+                <X className="w-5 h-5 text-white" />
+              </button>
 
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.2, type: 'spring' }}
-            className="text-5xl mb-3"
-          >
-            {chapter.icon}
-          </motion.div>
-          
-          <div className="flex items-center justify-center gap-2 text-gold-light mb-2">
-            <Calendar className="w-4 h-4" />
-            <span className="text-sm font-body">{chapter.date}</span>
-          </div>
+              {/* Title overlay */}
+              <div className="absolute bottom-0 left-0 right-0 p-6">
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: 0.2, type: 'spring' }}
+                  className="text-4xl mb-2"
+                >
+                  {chapter.icon}
+                </motion.div>
+                
+                <div className="flex items-center gap-2 text-gold-light mb-2">
+                  <Calendar className="w-4 h-4" />
+                  <span className="text-sm font-body">{chapter.date}</span>
+                </div>
 
-          <h2 className="font-display text-3xl text-primary-foreground">
-            {chapter.title}
-          </h2>
+                <h2 className="font-display text-3xl text-white drop-shadow-lg">
+                  {chapter.title}
+                </h2>
+              </div>
+            </div>
+          ) : (
+            <div className="bg-gradient-wine p-6 text-center relative">
+              <button
+                onClick={onClose}
+                className="absolute right-4 top-4 p-2 rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-colors"
+              >
+                <X className="w-5 h-5 text-primary-foreground" />
+              </button>
+
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: 0.2, type: 'spring' }}
+                className="text-5xl mb-3"
+              >
+                {chapter.icon}
+              </motion.div>
+              
+              <div className="flex items-center justify-center gap-2 text-gold-light mb-2">
+                <Calendar className="w-4 h-4" />
+                <span className="text-sm font-body">{chapter.date}</span>
+              </div>
+
+              <h2 className="font-display text-3xl text-primary-foreground">
+                {chapter.title}
+              </h2>
+            </div>
+          )}
         </div>
 
         {/* Content */}
-        <div className="p-6 overflow-y-auto max-h-[50vh]">
+        <div className="p-6 overflow-y-auto max-h-[45vh]">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -74,7 +116,7 @@ const ChapterDetail = ({ chapter, onClose }: ChapterDetailProps) => {
             </div>
 
             {/* Quote */}
-            <div className="bg-wine/5 rounded-xl p-4 border-l-4 border-wine">
+            <div className="bg-wine/5 rounded-xl p-4 border-l-4 border-wine mb-6">
               <div className="flex items-start gap-3">
                 <Quote className="w-5 h-5 text-gold flex-shrink-0 mt-1" />
                 <p className="font-body text-muted-foreground italic">
@@ -82,6 +124,19 @@ const ChapterDetail = ({ chapter, onClose }: ChapterDetailProps) => {
                 </p>
               </div>
             </div>
+
+            {/* Music info */}
+            {chapter.musicUrl && (
+              <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
+                <div className="w-10 h-10 rounded-full bg-gradient-wine flex items-center justify-center">
+                  <Music className="w-5 h-5 text-primary-foreground" />
+                </div>
+                <div>
+                  <p className="text-xs text-muted-foreground font-body">Trilha sonora deste capítulo</p>
+                  <p className="text-sm font-semibold text-foreground font-body">Céu Azul - Charlie Brown Jr.</p>
+                </div>
+              </div>
+            )}
           </motion.div>
         </div>
 
