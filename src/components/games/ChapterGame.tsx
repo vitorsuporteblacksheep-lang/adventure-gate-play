@@ -7,6 +7,7 @@ import SequenceGame from './SequenceGame';
 import MatchingGame from './MatchingGame';
 import PuzzleGame from './PuzzleGame';
 import HeartCatchGame from './HeartCatchGame';
+import HeartbeatGame from './HeartbeatGame';
 
 interface ChapterGameProps {
   chapter: ChapterData;
@@ -29,6 +30,8 @@ const ChapterGame = ({ chapter, onComplete, onClose }: ChapterGameProps) => {
         return <PuzzleGame chapter={chapter} onComplete={onComplete} />;
       case 'heart-catch':
         return <HeartCatchGame chapter={chapter} onComplete={onComplete} />;
+      case 'heartbeat':
+        return <HeartbeatGame chapter={chapter} onComplete={onComplete} />;
       default:
         return <QuizGame chapter={chapter} onComplete={onComplete} />;
     }

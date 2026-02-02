@@ -9,7 +9,7 @@ export interface ChapterData {
   image?: string;
   unlocked: boolean;
   gameCompleted: boolean;
-  gameType: 'quiz' | 'memory' | 'puzzle' | 'sequence' | 'matching' | 'heart-catch';
+  gameType: 'quiz' | 'memory' | 'puzzle' | 'sequence' | 'matching' | 'heart-catch' | 'heartbeat';
   musicUrl?: string;
   spotifyEmbedUrl?: string;
 }
@@ -47,7 +47,7 @@ const defaultChapters: ChapterData[] = [
     image: '/chapters/chapter-1.jpeg',
     unlocked: false,
     gameCompleted: false,
-    gameType: 'quiz',
+    gameType: 'heartbeat',
     musicUrl: 'https://www.youtube.com/watch?v=pMSwHRwbMEo',
     spotifyEmbedUrl: 'https://open.spotify.com/embed/track/70dJEanFPdYuWZumkrnKeX?utm_source=generator',
   },
