@@ -179,6 +179,19 @@ const defaultChapters: ChapterData[] = [
     gameType: 'quiz',
     spotifyEmbedUrl: 'https://open.spotify.com/embed/track/6xLka4rZhf5O0IWf0qLk4A?utm_source=generator',
   },
+  {
+    id: 'chapter-11',
+    title: 'Nossa Viagem a Cidade Maravilhosa',
+    date: 'Rio de Janeiro',
+    description: 'Essa lembrança é uma das mais maravilhosas que tenho contigo, em meio a tanta beleza dessa cidade, eu me perco em meio a sua beleza, eu achei que ia ver uma das 7 maravilhas do mundo, mas ele nem se compara a sua beleza quando acorda de manhã do lado.',
+    memory: 'Te amo minha Garota de Ipanema 💕',
+    quote: '"Te amo minha Garota de Ipanema"',
+    icon: '🌴',
+    image: '/chapters/chapter-11.jpeg',
+    unlocked: false,
+    gameCompleted: false,
+    gameType: 'quiz',
+  },
 ];
 
 const defaultState: GameState = {
