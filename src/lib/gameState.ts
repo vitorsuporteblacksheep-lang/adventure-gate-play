@@ -97,7 +97,7 @@ const defaultChapters: ChapterData[] = [
   {
     id: 'chapter-5',
     title: 'Nossa Primeira Saída Como Casal',
-    date: 'Setembro de 2025',
+    date: 'Setembro de 2022',
     description: 'Foi o dia em que eu fui à sua casa pela primeira vez, conheci sua mãe, saímos como um casal pela primeira vez e você dormiu na minha casa pela primeira vez. Um dia cheio de começos.',
     memory: 'Um dia cheio de primeiras vezes que nunca vou esquecer 💕',
     quote: '"Saudades das nossas saídas pro Beco"',
@@ -111,10 +111,10 @@ const defaultChapters: ChapterData[] = [
   {
     id: 'chapter-6',
     title: 'O Pedido de Namoro',
-    date: 'Setembro de 2025',
+    date: 'Outubro de 2022',
     description: 'Esse foi um dos dias em que eu mais fiquei nervoso na vida. O dia em que eu te pedi para ser minha namorada. Um dia que eu esperei por tanto tempo… e que nós dois, mesmo sem dizer, também esperávamos. Nosso primeiro namoro. Obrigado por ter sido uma das melhores escolhas da minha vida. Desde então, eu tenho ao meu lado a pessoa mais especial que eu poderia chamar de namorada.',
     memory: 'Te amo Nataly, obrigado por ser minha namorada 💕',
-    quote: '"Te amo Nataly, obrigado por ser minha namorada"',
+    quote: '"Você ficou maravilhosa nesse vestido vermelho"',
     icon: '💍',
     image: '/chapters/chapter-6.jpeg',
     videoUrl: '/chapters/chapter-6.mp4',
@@ -122,6 +122,20 @@ const defaultChapters: ChapterData[] = [
     gameCompleted: false,
     gameType: 'quiz',
     spotifyEmbedUrl: 'https://open.spotify.com/embed/track/4y93vvzu2h8MITw7YyUTcI?utm_source=generator',
+  },
+  {
+    id: 'chapter-7',
+    title: 'Nosso Primeiro Dia dos Namorados Juntos',
+    date: 'Junho de 2023',
+    description: 'Nosso primeiro dia dos namorados juntinhos, foi simplesmente maravilhoso, mesmo após eu tomar um golpe e perder 500 reais, foi a melhor comemoração que poderia existir e estar com você melhorou tudo.',
+    memory: 'Mesmo com o golpe, estar com você fez tudo valer a pena 💕',
+    quote: '"A Taylor Swift me enganou"',
+    icon: '💝',
+    image: '/chapters/chapter-7.jpeg',
+    unlocked: false,
+    gameCompleted: false,
+    gameType: 'quiz',
+    spotifyEmbedUrl: 'https://open.spotify.com/embed/track/6NFyWDv5CjfwuzoCkw47Xf?utm_source=generator',
   },
 ];
 

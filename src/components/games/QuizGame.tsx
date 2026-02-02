@@ -44,6 +44,13 @@ const quizQuestions: Record<string, { question: string; options: string[]; corre
       correct: 1,
     },
   ],
+  'chapter-7': [
+    {
+      question: 'Quanto dinheiro você perdeu no golpe do dia dos namorados?',
+      options: ['R$ 200', 'R$ 350', 'R$ 500', 'R$ 800'],
+      correct: 2,
+    },
+  ],
 };
 
 const QuizGame = ({ chapter, onComplete }: QuizGameProps) => {
