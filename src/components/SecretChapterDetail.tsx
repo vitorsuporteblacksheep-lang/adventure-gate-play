@@ -150,22 +150,29 @@ const SecretChapterDetail = ({ chapter, onClose }: SecretChapterDetailProps) => 
           className="p-4 md:p-6"
         >
           <div 
-            className="relative w-full rounded-xl overflow-hidden border border-amber-200/20"
+            className="relative w-full rounded-2xl overflow-hidden border-2 border-amber-200/30"
             style={{
-              aspectRatio: '16/9',
-              background: 'linear-gradient(135deg, rgba(0,0,0,0.5) 0%, rgba(26,26,46,0.8) 100%)',
-              boxShadow: '0 0 30px rgba(212,175,55,0.15)',
+              background: 'linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(26,26,46,0.9) 100%)',
+              boxShadow: '0 0 40px rgba(212,175,55,0.2), 0 0 80px rgba(147,112,219,0.1)',
             }}
           >
             {chapter.videoUrl ? (
               <video
                 src={chapter.videoUrl}
                 controls
-                className="w-full h-full object-contain"
+                playsInline
+                preload="auto"
+                className="w-full h-auto max-h-[70vh] object-contain mx-auto"
+                style={{
+                  minHeight: '200px',
+                }}
                 onLoadedData={() => setVideoLoaded(true)}
               />
             ) : (
-              <div className="absolute inset-0 flex flex-col items-center justify-center text-amber-200/60">
+              <div 
+                className="flex flex-col items-center justify-center text-amber-200/60 py-16"
+                style={{ aspectRatio: '16/9' }}
+              >
                 <motion.div
                   animate={{ 
                     scale: [1, 1.1, 1],
@@ -183,6 +190,18 @@ const SecretChapterDetail = ({ chapter, onClose }: SecretChapterDetailProps) => 
               </div>
             )}
           </div>
+          
+          {/* Video caption */}
+          {chapter.videoUrl && (
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.6 }}
+              className="text-center text-amber-200/60 text-xs mt-2 font-body"
+            >
+              🎬 Ative o som para a experiência completa
+            </motion.p>
+          )}
         </motion.div>
 
         {/* Description - if any */}
