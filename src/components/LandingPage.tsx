@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Heart, Sparkles, Play, Star, Cake } from 'lucide-react';
 import UnlockGameIntro from './games/UnlockGameIntro';
 import birthdayPhoto from '@/assets/birthday-photo.png';
+import confetti from 'canvas-confetti';
 
 interface LandingPageProps {
   onStart: () => void;
@@ -13,6 +14,32 @@ const LandingPage = ({ onStart }: LandingPageProps) => {
   const [gameCompleted, setGameCompleted] = useState(false);
 
   const handlePlayClick = () => {
+    // Trigger celebration confetti
+    const duration = 2000;
+    const end = Date.now() + duration;
+
+    const frame = () => {
+      confetti({
+        particleCount: 4,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0, y: 0.7 },
+        colors: ['#722F37', '#D4AF37', '#FFD700', '#FFF8E7', '#8B1538'],
+      });
+      confetti({
+        particleCount: 4,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1, y: 0.7 },
+        colors: ['#722F37', '#D4AF37', '#FFD700', '#FFF8E7', '#8B1538'],
+      });
+
+      if (Date.now() < end) {
+        requestAnimationFrame(frame);
+      }
+    };
+    frame();
+
     setShowGame(true);
   };
 
