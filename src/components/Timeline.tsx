@@ -84,21 +84,21 @@ const Timeline = ({
   const handleCloseChapterDetail = () => {
     const closingChapter = selectedChapter;
     setSelectedChapter(null);
-    
-    // If closing chapter 11, trigger secret reveal
+
+    // If closing chapter 11, trigger secret reveal + unlock chapter 12 (but do NOT auto-complete it)
     if (closingChapter?.isFinalChapter && secretChapterData && !secretUnlocked) {
       setTimeout(() => {
         setSecretChapter(secretChapterData);
         setShowSecretReveal(true);
-        // Unlock secret chapter and complete it - this will also unlock gallery/feelings/future
-        const newState = completeChapterGame(gameState, 'chapter-12');
-        // Also mark it as unlocked
-        const finalState = {
-          ...newState,
-          chapters: newState.chapters.map(ch => 
+
+        // Unlock secret chapter in state
+        const finalState: GameState = {
+          ...gameState,
+          chapters: gameState.chapters.map((ch) =>
             ch.id === 'chapter-12' ? { ...ch, unlocked: true } : ch
           ),
         };
+
         saveState(finalState);
         onStateChange(finalState);
       }, 800);
@@ -404,6 +404,13 @@ const Timeline = ({
           <SecretChapterDetail
             chapter={selectedChapter}
             onClose={() => {
+              // When the secret chapter is closed, mark it as completed once.
+              // This is what should unlock Gallery/Feelings/Future.
+              if (!selectedChapter.gameCompleted) {
+                const newState = completeChapterGame(gameState, selectedChapter.id);
+                onStateChange(newState);
+              }
+
               setShowSecretDetail(false);
               setSelectedChapter(null);
             }}
