@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, Sparkles, Play, Wine } from 'lucide-react';
+import { Heart, Sparkles, Play, Star, Cake } from 'lucide-react';
 import UnlockGameIntro from './games/UnlockGameIntro';
+import birthdayPhoto from '@/assets/birthday-photo.png';
 
 interface LandingPageProps {
   onStart: () => void;
@@ -37,20 +38,20 @@ const LandingPage = ({ onStart }: LandingPageProps) => {
         }} />
       </div>
 
-      {/* Floating hearts decoration */}
+      {/* Floating stars and hearts decoration */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {[...Array(15)].map((_, i) => (
+        {[...Array(20)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute"
             initial={{ opacity: 0 }}
             animate={{
-              opacity: [0.1, 0.4, 0.1],
-              y: [0, -30, 0],
-              scale: [0.8, 1.1, 0.8],
+              opacity: [0.1, 0.5, 0.1],
+              y: [0, -20, 0],
+              scale: [0.8, 1.2, 0.8],
             }}
             transition={{
-              duration: 4 + Math.random() * 3,
+              duration: 3 + Math.random() * 4,
               repeat: Infinity,
               delay: Math.random() * 3,
             }}
@@ -59,29 +60,37 @@ const LandingPage = ({ onStart }: LandingPageProps) => {
               top: `${Math.random() * 100}%`,
             }}
           >
-            <Heart 
-              className="text-gold-light" 
-              size={8 + Math.random() * 16}
-              fill="currentColor"
-            />
+            {i % 3 === 0 ? (
+              <Star 
+                className="text-gold-light" 
+                size={6 + Math.random() * 12}
+                fill="currentColor"
+              />
+            ) : (
+              <Heart 
+                className="text-gold-light" 
+                size={6 + Math.random() * 12}
+                fill="currentColor"
+              />
+            )}
           </motion.div>
         ))}
       </div>
 
-      {/* Decorative wine elements */}
+      {/* Decorative elements */}
       <motion.div 
-        className="absolute top-10 left-10 opacity-20"
-        animate={{ rotate: [0, 10, 0] }}
-        transition={{ duration: 8, repeat: Infinity }}
+        className="absolute top-8 left-8 opacity-30"
+        animate={{ rotate: [0, 10, 0], scale: [1, 1.1, 1] }}
+        transition={{ duration: 6, repeat: Infinity }}
       >
-        <Wine className="w-20 h-20 text-gold" />
+        <Cake className="w-16 h-16 text-gold" />
       </motion.div>
       <motion.div 
-        className="absolute bottom-20 right-10 opacity-20"
-        animate={{ rotate: [0, -10, 0] }}
-        transition={{ duration: 8, repeat: Infinity, delay: 1 }}
+        className="absolute bottom-16 right-8 opacity-30"
+        animate={{ rotate: [0, -10, 0], scale: [1, 1.1, 1] }}
+        transition={{ duration: 6, repeat: Infinity, delay: 1 }}
       >
-        <Wine className="w-16 h-16 text-gold-light" />
+        <Star className="w-14 h-14 text-gold-light" fill="currentColor" />
       </motion.div>
 
       <AnimatePresence mode="wait">
@@ -92,32 +101,76 @@ const LandingPage = ({ onStart }: LandingPageProps) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -30 }}
             transition={{ duration: 0.6 }}
-            className="text-center z-10 px-6"
+            className="text-center z-10 px-6 max-w-lg"
           >
-            {/* Logo/Icon */}
+            {/* Photo frame with glow effect */}
             <motion.div
-              animate={{ scale: [1, 1.08, 1] }}
-              transition={{ duration: 3, repeat: Infinity }}
-              className="mb-10 relative"
+              animate={{ scale: [1, 1.02, 1] }}
+              transition={{ duration: 4, repeat: Infinity }}
+              className="mb-8 relative mx-auto"
             >
-              <div className="absolute inset-0 blur-3xl bg-gold/20 rounded-full" />
-              <Heart className="w-24 h-24 text-gold relative" fill="currentColor" />
+              {/* Outer glow */}
+              <div className="absolute -inset-4 blur-2xl bg-gold/30 rounded-full" />
+              
+              {/* Photo container */}
+              <div className="relative w-40 h-40 md:w-52 md:h-52 mx-auto rounded-full overflow-hidden border-4 border-gold/50 shadow-glow">
+                <img 
+                  src={birthdayPhoto} 
+                  alt="Foto de aniversário"
+                  className="w-full h-full object-cover"
+                />
+                
+                {/* Shimmer overlay */}
+                <div className="absolute inset-0 shimmer opacity-30" />
+              </div>
+
+              {/* Floating decorations around photo */}
+              <motion.div 
+                className="absolute -top-2 -right-2"
+                animate={{ rotate: [0, 360] }}
+                transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+              >
+                <Star className="w-6 h-6 text-gold" fill="currentColor" />
+              </motion.div>
+              <motion.div 
+                className="absolute -bottom-1 -left-1"
+                animate={{ scale: [1, 1.3, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                <Heart className="w-5 h-5 text-gold-light" fill="currentColor" />
+              </motion.div>
+            </motion.div>
+
+            {/* Age badge */}
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.3, type: "spring" }}
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-gold/20 border border-gold/30 mb-6"
+            >
+              <Cake className="w-4 h-4 text-gold" />
+              <span className="font-display text-2xl md:text-3xl text-gold font-semibold">24 anos</span>
+              <Sparkles className="w-4 h-4 text-gold" />
             </motion.div>
 
             {/* Title */}
-            <h1 className="font-display text-5xl md:text-7xl text-primary-foreground mb-4 tracking-wide">
-              Nossa História
+            <h1 className="font-display text-4xl md:text-6xl text-primary-foreground mb-3 tracking-wide">
+              Feliz Aniversário
             </h1>
+            
+            <h2 className="font-display text-2xl md:text-3xl text-gold mb-4">
+              Meu Amor ✨
+            </h2>
             
             {/* Decorative line */}
             <div className="flex items-center justify-center gap-4 mb-6">
-              <div className="h-px w-16 bg-gradient-to-r from-transparent to-gold" />
-              <Sparkles className="w-5 h-5 text-gold" />
-              <div className="h-px w-16 bg-gradient-to-l from-transparent to-gold" />
+              <div className="h-px w-12 bg-gradient-to-r from-transparent to-gold" />
+              <Heart className="w-4 h-4 text-gold" fill="currentColor" />
+              <div className="h-px w-12 bg-gradient-to-l from-transparent to-gold" />
             </div>
             
-            <p className="font-body text-lg md:text-xl text-primary-foreground/80 mb-10 max-w-md mx-auto leading-relaxed">
-              Uma jornada interativa pelos momentos mais especiais do nosso amor
+            <p className="font-body text-base md:text-lg text-primary-foreground/80 mb-8 max-w-sm mx-auto leading-relaxed">
+              Uma jornada especial celebrando você e cada momento lindo que vivemos juntos
             </p>
 
             <motion.div
@@ -130,13 +183,13 @@ const LandingPage = ({ onStart }: LandingPageProps) => {
               >
                 <div className="absolute inset-0 shimmer" />
                 <Play className="w-5 h-5 relative z-10" />
-                <span className="relative z-10">Começar Jornada</span>
+                <span className="relative z-10">Abrir Presente</span>
                 <Heart className="w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity relative z-10" fill="currentColor" />
               </button>
             </motion.div>
 
-            <p className="text-sm text-primary-foreground/60 mt-8 font-body">
-              ✨ Complete um pequeno desafio para desbloquear a história
+            <p className="text-sm text-primary-foreground/60 mt-6 font-body">
+              🎁 Complete um pequeno desafio para desbloquear sua surpresa
             </p>
           </motion.div>
         ) : !gameCompleted ? (
@@ -160,12 +213,12 @@ const LandingPage = ({ onStart }: LandingPageProps) => {
               animate={{ scale: [1, 1.3, 1] }}
               transition={{ duration: 0.5 }}
             >
-              <Heart className="w-28 h-28 text-gold mx-auto mb-6" fill="currentColor" />
+              <Cake className="w-28 h-28 text-gold mx-auto mb-6" />
             </motion.div>
             <h2 className="font-display text-4xl text-primary-foreground">
-              História Desbloqueada!
+              Presente Desbloqueado!
             </h2>
-            <p className="text-primary-foreground/70 mt-2">✨ Prepare-se para reviver nossos momentos ✨</p>
+            <p className="text-primary-foreground/70 mt-2">🎉 Prepare-se para celebrar nossos momentos 🎉</p>
           </motion.div>
         )}
       </AnimatePresence>
