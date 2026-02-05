@@ -8,75 +8,76 @@ interface QuizGameProps {
   onComplete: () => void;
 }
 
-const quizQuestions: Record<string, { question: string; options: string[]; correct: number }[]> = {
+// Quiz questions with correct answer index (0-based)
+const quizQuestions: Record<string, { question: string; options: string[]; correctIndex: number }[]> = {
   'chapter-1': [
     {
       question: 'O que você sentiu no primeiro momento que me viu?',
       options: ['Borboletas no estômago', 'Indiferença', 'Curiosidade', 'Um amor instantâneo'],
-      correct: 0,
+      correctIndex: 0,
     },
   ],
   'chapter-3': [
     {
       question: 'Qual foi o primeiro filme que assistimos juntos?',
       options: ['Vingadores: Ultimato', 'Thor: Amor e Trovão', 'Homem-Aranha: Sem Volta para Casa', 'Doutor Estranho 2'],
-      correct: 1,
+      correctIndex: 1,
     },
   ],
   'chapter-4': [
     {
       question: 'Qual o primeiro jogo que jogamos juntos?',
       options: ['The Last of Us', 'Until Dawn', 'Resident Evil', 'It Takes Two'],
-      correct: 1,
+      correctIndex: 1,
     },
   ],
   'chapter-5': [
     {
       question: 'Qual foi a primeira festa que saímos como um casal?',
       options: ['Carnaval', 'Beco', 'Festa Junina', 'Réveillon'],
-      correct: 1,
+      correctIndex: 1,
     },
   ],
   'chapter-6': [
     {
       question: 'De quem era o show no dia do seu pedido de namoro?',
       options: ['Jorge e Mateus', 'Henrique e Juliano', 'Marília Mendonça', 'Gusttavo Lima'],
-      correct: 1,
+      correctIndex: 1,
     },
   ],
   'chapter-7': [
     {
       question: 'Qual foi o restaurante do nosso primeiro dia dos namorados?',
-      options: ['Restaurante Coco Bambu', 'Restaurante Rio', 'Restaurante Madero', 'Restaurante Outback'],
-      correct: 1,
+      options: ['Coco Bambu', 'Rio', 'Madero', 'Outback'],
+      correctIndex: 1,
     },
   ],
   'chapter-8': [
     {
       question: 'Qual foi o lugar da nossa primeira viagem de casal?',
       options: ['Rio de Janeiro', 'Fortaleza', 'Salvador', 'Recife'],
-      correct: 2,
+      correctIndex: 2,
     },
   ],
   'chapter-9': [
     {
       question: 'Onde passamos o seu aniversário do ano passado?',
       options: ['Outback', 'Jungle', 'Madero', 'Coco Bambu'],
-      correct: 1,
+      correctIndex: 1,
     },
   ],
   'chapter-10': [
     {
       question: 'Do que eu estava fantasiado no carnaval?',
       options: ['Mickey Mouse', 'Minnie Mouse', 'Pirata', 'Super-Herói'],
-      correct: 1,
+      correctIndex: 1,
     },
   ],
   'chapter-11': [
     {
       question: 'Qual cidade você queria mais conhecer no Brasil?',
       options: ['São Paulo', 'Rio de Janeiro', 'Florianópolis', 'Curitiba'],
-      correct: 1,
+      correctIndex: 1,
     },
   ],
 };
@@ -93,7 +94,10 @@ const QuizGame = ({ chapter, onComplete }: QuizGameProps) => {
     if (selectedAnswer !== null) return;
     
     setSelectedAnswer(index);
-    const isCorrect = index === questions[currentQuestion].correct;
+    const correctAnswerIndex = questions[currentQuestion].correctIndex;
+    const isCorrect = index === correctAnswerIndex;
+    
+    console.log('Quiz answer:', { index, correctAnswerIndex, isCorrect, question: questions[currentQuestion].question });
     
     if (isCorrect) {
       setScore(score + 1);
@@ -198,17 +202,17 @@ const QuizGame = ({ chapter, onComplete }: QuizGameProps) => {
               selectedAnswer === null
                 ? 'bg-card hover:bg-wine/5 hover:border-wine/30 border border-wine/10 shadow-soft'
                 : selectedAnswer === index
-                ? index === question.correct
+                ? index === question.correctIndex
                   ? 'bg-wine text-primary-foreground border border-wine'
                   : 'bg-destructive/80 text-destructive-foreground border border-destructive'
-                : index === question.correct && showResult
+                : index === question.correctIndex && showResult
                 ? 'bg-wine/20 border-2 border-wine'
                 : 'bg-muted opacity-50 border border-transparent'
             }`}
           >
             <span className="font-medium">{option}</span>
             {showResult && selectedAnswer === index && (
-              index === question.correct ? (
+              index === question.correctIndex ? (
                 <Check className="w-5 h-5" />
               ) : (
                 <X className="w-5 h-5" />
