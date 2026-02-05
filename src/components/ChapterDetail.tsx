@@ -12,11 +12,6 @@ const ChapterDetail = ({ chapter, onClose }: ChapterDetailProps) => {
   const [showVideo, setShowVideo] = useState(false);
   const hasVideo = !!chapter.videoUrl;
 
-  // Autoplay Spotify URL - using theme=0 and autoplay=true for better compatibility
-  const spotifyAutoplayUrl = chapter.spotifyEmbedUrl 
-    ? chapter.spotifyEmbedUrl + (chapter.spotifyEmbedUrl.includes('?') ? '&theme=0&autoplay=true' : '?theme=0&autoplay=true')
-    : null;
-
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -36,19 +31,19 @@ const ChapterDetail = ({ chapter, onClose }: ChapterDetailProps) => {
         {/* Header with photo/video or gradient */}
         <div className="relative">
           {chapter.image ? (
-            <div className="relative h-56 overflow-hidden">
+            <div className="relative h-72 md:h-80 overflow-hidden">
               {showVideo && chapter.videoUrl ? (
                 <video
                   src={chapter.videoUrl}
                   controls
                   autoPlay
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain bg-black"
                 />
               ) : (
                 <img 
                   src={chapter.image} 
                   alt={chapter.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain bg-gradient-to-b from-wine-dark/50 to-wine-dark"
                 />
               )}
               <div className="absolute inset-0 bg-gradient-to-t from-wine-dark via-wine-dark/40 to-transparent pointer-events-none" />
@@ -165,19 +160,20 @@ const ChapterDetail = ({ chapter, onClose }: ChapterDetailProps) => {
                   <Music className="w-5 h-5 text-wine" />
                   <span className="font-display text-lg text-foreground">Trilha Sonora</span>
                 </div>
-                <p className="text-xs text-muted-foreground mb-2 flex items-center gap-1">
+                <p className="text-xs text-muted-foreground mb-3 flex items-center gap-1">
                   <span className="inline-block w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                  Dê play para ouvir nossa música
+                  Toque no play para ouvir nossa música
                 </p>
                 <iframe
-                  src={spotifyAutoplayUrl || ''}
+                  key={chapter.id}
+                  src={chapter.spotifyEmbedUrl}
                   width="100%"
                   height="152"
                   frameBorder="0"
-                  allowFullScreen
                   allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                  loading="lazy"
+                  loading="eager"
                   className="rounded-xl"
+                  title={`Spotify - ${chapter.title}`}
                 />
               </div>
             )}
