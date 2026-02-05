@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Heart, Lock, ChevronRight, Gamepad2, Play, Sparkles, Quote, Moon } from 'lucide-react';
-import { ChapterData, GameState, completeChapterGame } from '@/lib/gameState';
+import { ChapterData, GameState, completeChapterGame, saveState } from '@/lib/gameState';
 import ChapterDetail from './ChapterDetail';
 import ChapterGame from './games/ChapterGame';
 import ChapterReveal from './ChapterReveal';
@@ -90,11 +90,17 @@ const Timeline = ({
       setTimeout(() => {
         setSecretChapter(secretChapterData);
         setShowSecretReveal(true);
-        // Unlock secret chapter in state
-        const updatedChapters = gameState.chapters.map(ch => 
-          ch.id === 'chapter-12' ? { ...ch, unlocked: true, gameCompleted: true } : ch
-        );
-        onStateChange({ ...gameState, chapters: updatedChapters });
+        // Unlock secret chapter and complete it - this will also unlock gallery/feelings/future
+        const newState = completeChapterGame(gameState, 'chapter-12');
+        // Also mark it as unlocked
+        const finalState = {
+          ...newState,
+          chapters: newState.chapters.map(ch => 
+            ch.id === 'chapter-12' ? { ...ch, unlocked: true } : ch
+          ),
+        };
+        saveState(finalState);
+        onStateChange(finalState);
       }, 800);
     }
   };
