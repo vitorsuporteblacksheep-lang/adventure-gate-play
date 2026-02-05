@@ -26,19 +26,19 @@ const Navigation = ({ currentSection, onNavigate, sectionUnlocks }: NavigationPr
       id: 'gallery', 
       label: 'Galeria', 
       icon: <Images className="w-5 h-5" />,
-      unlockMessage: 'Complete 2 capítulos'
+      unlockMessage: 'Complete toda a história'
     },
     { 
       id: 'feelings', 
       label: 'Sentimentos', 
       icon: <MessageCircleHeart className="w-5 h-5" />,
-      unlockMessage: 'Complete 4 capítulos'
+      unlockMessage: 'Complete toda a história'
     },
     { 
       id: 'future', 
       label: 'Futuro', 
       icon: <Sparkles className="w-5 h-5" />,
-      unlockMessage: 'Complete todos'
+      unlockMessage: 'Complete toda a história'
     },
   ];
 
