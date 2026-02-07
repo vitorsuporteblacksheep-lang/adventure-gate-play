@@ -24,6 +24,7 @@ interface GalleryItem {
   date: string;
   mood: string;
   videoUrl?: string;
+  imageUrl?: string;
   chatMessages?: ChatMessage[];
 }
 
@@ -50,6 +51,7 @@ const memories: GalleryItem[] = [
       { sender: 'me', text: 'olha aqui', time: '03:34' },
     ]
   },
+  { id: 11, emoji: '❤️‍🔥', title: 'Dia da mulher de vermelho', date: '2023', mood: 'Paixão', imageUrl: '/gallery/mulher-de-vermelho.jpeg' },
   { id: 3, emoji: '📸', title: 'Nosso primeiro selfie juntos', date: 'Janeiro 2023', mood: 'Felicidade' },
   { id: 4, emoji: '🌅', title: 'Pôr do sol na praia', date: 'Março 2023', mood: 'Paz' },
   { id: 5, emoji: '🎂', title: 'Seu aniversário especial', date: 'Maio 2023', mood: 'Celebração' },
@@ -61,6 +63,7 @@ const memories: GalleryItem[] = [
 const Gallery = ({ interactions, onInteraction }: GalleryProps) => {
   const [selectedVideo, setSelectedVideo] = useState<GalleryItem | null>(null);
   const [selectedChat, setSelectedChat] = useState<GalleryItem | null>(null);
+  const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
 
   const handleCardClick = (memory: GalleryItem) => {
     onInteraction();
@@ -68,6 +71,8 @@ const Gallery = ({ interactions, onInteraction }: GalleryProps) => {
       setSelectedVideo(memory);
     } else if (memory.chatMessages) {
       setSelectedChat(memory);
+    } else if (memory.imageUrl) {
+      setSelectedImage(memory);
     }
   };
 
@@ -109,6 +114,8 @@ const Gallery = ({ interactions, onInteraction }: GalleryProps) => {
                   <Play className="w-4 h-4 text-wine" />
                 ) : memory.chatMessages ? (
                   <MessageCircle className="w-4 h-4 text-wine" />
+                ) : memory.imageUrl ? (
+                  <Camera className="w-4 h-4 text-wine" />
                 ) : (
                   <ImageIcon className="w-4 h-4 text-wine" />
                 )}
@@ -274,6 +281,50 @@ const Gallery = ({ interactions, onInteraction }: GalleryProps) => {
                   <Heart className="w-4 h-4 text-wine" fill="currentColor" />
                   <span className="text-xs text-white/40 font-body">
                     {selectedChat.date} • {selectedChat.mood}
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Image Modal */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
+            onClick={() => setSelectedImage(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              className="relative w-full max-w-lg bg-gradient-card rounded-2xl overflow-hidden shadow-elegant border border-wine/20"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="p-4 flex items-center justify-between border-b border-wine/10">
+                <h3 className="font-display text-lg text-foreground">{selectedImage.title}</h3>
+                <button
+                  onClick={() => setSelectedImage(null)}
+                  className="w-8 h-8 rounded-full bg-wine/10 flex items-center justify-center hover:bg-wine/20 transition-colors"
+                >
+                  <X className="w-4 h-4 text-wine" />
+                </button>
+              </div>
+              <div className="p-4">
+                <img
+                  src={selectedImage.imageUrl}
+                  alt={selectedImage.title}
+                  className="w-full rounded-xl object-contain max-h-[70vh]"
+                />
+                <div className="mt-3 flex items-center gap-2">
+                  <Heart className="w-4 h-4 text-wine" fill="currentColor" />
+                  <span className="text-sm text-muted-foreground font-body">
+                    {selectedImage.date} • {selectedImage.mood}
                   </span>
                 </div>
               </div>
