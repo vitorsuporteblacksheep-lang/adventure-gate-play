@@ -54,6 +54,7 @@ const memories: GalleryItem[] = [
   { id: 11, emoji: '❤️‍🔥', title: 'Dia da mulher de vermelho', date: '2023', mood: 'Paixão', imageUrl: '/gallery/mulher-de-vermelho.jpeg' },
   { id: 12, emoji: '🏡', title: 'Primeira vez que fui na casa do seu pai', date: '2022', mood: 'Família', imageUrl: '/gallery/casa-do-pai.jpeg' },
   { id: 13, emoji: '🍕', title: 'Primeira vez que fomos no Madre', date: 'Novembro 2022', mood: 'Diversão', imageUrl: '/gallery/primeiro-madre.jpeg' },
+  { id: 14, emoji: '🎆', title: 'Primeiro ano novo que passamos juntos', date: 'Dezembro 2022', mood: 'Celebração', imageUrl: '/gallery/primeiro-ano-novo.jpeg' },
   { id: 3, emoji: '📸', title: 'Nosso primeiro selfie juntos', date: 'Janeiro 2023', mood: 'Felicidade' },
   { id: 4, emoji: '🌅', title: 'Pôr do sol na praia', date: 'Março 2023', mood: 'Paz' },
   { id: 5, emoji: '🎂', title: 'Seu aniversário especial', date: 'Maio 2023', mood: 'Celebração' },
