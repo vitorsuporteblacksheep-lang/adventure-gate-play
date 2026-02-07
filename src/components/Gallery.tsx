@@ -1,10 +1,20 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, Camera, Sparkles, ImageIcon, Play, X } from 'lucide-react';
+import { Heart, Camera, Sparkles, ImageIcon, Play, X, MessageCircle } from 'lucide-react';
 
 interface GalleryProps {
   interactions: number;
   onInteraction: () => void;
+}
+
+interface ChatMessage {
+  sender: 'me' | 'her';
+  text: string;
+  time: string;
+  isAudio?: boolean;
+  audioDuration?: string;
+  isReply?: boolean;
+  replyTo?: string;
 }
 
 interface GalleryItem {
@@ -14,25 +24,48 @@ interface GalleryItem {
   date: string;
   mood: string;
   videoUrl?: string;
+  chatMessages?: ChatMessage[];
 }
 
 const memories: GalleryItem[] = [
   { id: 1, emoji: '💑', title: 'Primeira vez que saímos juntos de "casal"', date: 'Setembro 2022', mood: 'Amor', videoUrl: '/gallery/primeira-saida-casal.mp4' },
-  { id: 2, emoji: '📸', title: 'Nosso primeiro selfie juntos', date: 'Janeiro 2023', mood: 'Felicidade' },
-  { id: 3, emoji: '🌅', title: 'Pôr do sol na praia', date: 'Março 2023', mood: 'Paz' },
-  { id: 4, emoji: '🎂', title: 'Seu aniversário especial', date: 'Maio 2023', mood: 'Celebração' },
-  { id: 5, emoji: '🎄', title: 'Nosso primeiro Natal', date: 'Dezembro 2023', mood: 'Magia' },
-  { id: 6, emoji: '✈️', title: 'Nossa viagem dos sonhos', date: 'Junho 2023', mood: 'Aventura' },
-  { id: 7, emoji: '🌹', title: 'Dia dos Namorados', date: 'Junho 2023', mood: 'Romance' },
+  { 
+    id: 2, 
+    emoji: '🪄', 
+    title: 'Saudade das nossas conversas até tarde minha bruxinha 🪄❤️', 
+    date: '03:34 da madrugada', 
+    mood: 'Saudade',
+    chatMessages: [
+      { sender: 'me', text: 'todas as vezes que você passar por lá vai lembrar', time: '03:32' },
+      { sender: 'me', text: 'anota aí', time: '03:32' },
+      { sender: 'her', text: '🎵 Áudio 0:26', time: '03:33', isAudio: true, audioDuration: '0:26' },
+      { sender: 'her', text: 'aaaaa, eu amo isso', time: '03:33' },
+      { sender: 'her', text: 'vai ser é ao contrário', time: '03:33' },
+      { sender: 'her', text: 'da minha parte nem precisa anotar', time: '03:33', isReply: true, replyTo: 'anota aí' },
+      { sender: 'me', text: 'porque você é quem vai', time: '03:33' },
+      { sender: 'me', text: 'mas não tem como eu esquecer', time: '03:33' },
+      { sender: 'me', text: 'foi muito especial', time: '03:33' },
+      { sender: 'me', text: 'olha aqui', time: '03:34' },
+    ]
+  },
+  { id: 3, emoji: '📸', title: 'Nosso primeiro selfie juntos', date: 'Janeiro 2023', mood: 'Felicidade' },
+  { id: 4, emoji: '🌅', title: 'Pôr do sol na praia', date: 'Março 2023', mood: 'Paz' },
+  { id: 5, emoji: '🎂', title: 'Seu aniversário especial', date: 'Maio 2023', mood: 'Celebração' },
+  { id: 6, emoji: '🎄', title: 'Nosso primeiro Natal', date: 'Dezembro 2023', mood: 'Magia' },
+  { id: 7, emoji: '✈️', title: 'Nossa viagem dos sonhos', date: 'Junho 2023', mood: 'Aventura' },
+  { id: 8, emoji: '🌹', title: 'Dia dos Namorados', date: 'Junho 2023', mood: 'Romance' },
 ];
 
 const Gallery = ({ interactions, onInteraction }: GalleryProps) => {
   const [selectedVideo, setSelectedVideo] = useState<GalleryItem | null>(null);
+  const [selectedChat, setSelectedChat] = useState<GalleryItem | null>(null);
 
   const handleCardClick = (memory: GalleryItem) => {
     onInteraction();
     if (memory.videoUrl) {
       setSelectedVideo(memory);
+    } else if (memory.chatMessages) {
+      setSelectedChat(memory);
     }
   };
 
@@ -72,6 +105,8 @@ const Gallery = ({ interactions, onInteraction }: GalleryProps) => {
               <div className="w-8 h-8 rounded-full bg-wine/10 flex items-center justify-center group-hover:bg-wine/20 transition-colors">
                 {memory.videoUrl ? (
                   <Play className="w-4 h-4 text-wine" />
+                ) : memory.chatMessages ? (
+                  <MessageCircle className="w-4 h-4 text-wine" />
                 ) : (
                   <ImageIcon className="w-4 h-4 text-wine" />
                 )}
@@ -141,6 +176,102 @@ const Gallery = ({ interactions, onInteraction }: GalleryProps) => {
                   <Heart className="w-4 h-4 text-wine" fill="currentColor" />
                   <span className="text-sm text-muted-foreground font-body">
                     {selectedVideo.date} • {selectedVideo.mood}
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Chat Modal */}
+      <AnimatePresence>
+        {selectedChat && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
+            onClick={() => setSelectedChat(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              className="relative w-full max-w-sm bg-[#0b141a] rounded-2xl overflow-hidden shadow-elegant border border-wine/20"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* WhatsApp-style header */}
+              <div className="px-4 py-3 flex items-center justify-between bg-[#1f2c34] border-b border-white/5">
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-full bg-wine/30 flex items-center justify-center text-lg">
+                    🪄
+                  </div>
+                  <div>
+                    <h3 className="font-body text-sm font-semibold text-white/90">Bruxinha ❤️ ✨</h3>
+                    <p className="text-[10px] text-white/40 font-body">online</p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setSelectedChat(null)}
+                  className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition-colors"
+                >
+                  <X className="w-4 h-4 text-white/60" />
+                </button>
+              </div>
+
+              {/* Chat messages */}
+              <div className="p-3 max-h-[60vh] overflow-y-auto space-y-1.5" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'200\' height=\'200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cdefs%3E%3Cpattern id=\'p\' width=\'40\' height=\'40\' patternUnits=\'userSpaceOnUse\'%3E%3Ccircle cx=\'20\' cy=\'20\' r=\'1\' fill=\'%23ffffff08\'/%3E%3C/pattern%3E%3C/defs%3E%3Crect fill=\'%2309141a\' width=\'200\' height=\'200\'/%3E%3Crect fill=\'url(%23p)\' width=\'200\' height=\'200\'/%3E%3C/svg%3E")' }}>
+                {selectedChat.chatMessages?.map((msg, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ delay: i * 0.08 }}
+                    className={`flex ${msg.sender === 'me' ? 'justify-end' : 'justify-start'}`}
+                  >
+                    <div
+                      className={`max-w-[80%] px-3 py-1.5 rounded-lg text-sm font-body relative ${
+                        msg.sender === 'me'
+                          ? 'bg-[#005c4b] text-white/90'
+                          : 'bg-[#1f2c34] text-white/90'
+                      }`}
+                    >
+                      {msg.isReply && msg.replyTo && (
+                        <div className="mb-1 px-2 py-1 bg-black/20 rounded border-l-2 border-green-400/60">
+                          <span className="text-[10px] text-green-400/70 font-medium">Você</span>
+                          <p className="text-[11px] text-white/50">{msg.replyTo}</p>
+                        </div>
+                      )}
+                      {msg.isAudio ? (
+                        <div className="flex items-center gap-2 py-1">
+                          <div className="w-8 h-8 rounded-full bg-wine/40 flex items-center justify-center">
+                            <Play className="w-3 h-3 text-white/80 ml-0.5" />
+                          </div>
+                          <div className="flex-1">
+                            <div className="h-1 bg-white/20 rounded-full w-20">
+                              <div className="h-1 bg-white/50 rounded-full w-12" />
+                            </div>
+                            <span className="text-[10px] text-white/40 mt-0.5">{msg.audioDuration}</span>
+                          </div>
+                        </div>
+                      ) : (
+                        <span>{msg.text}</span>
+                      )}
+                      <span className="text-[10px] text-white/30 ml-2 float-right mt-1">
+                        {msg.time} {msg.sender === 'me' && '✓✓'}
+                      </span>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Footer */}
+              <div className="px-4 py-3 bg-[#1f2c34] border-t border-white/5">
+                <div className="flex items-center gap-2">
+                  <Heart className="w-4 h-4 text-wine" fill="currentColor" />
+                  <span className="text-xs text-white/40 font-body">
+                    {selectedChat.date} • {selectedChat.mood}
                   </span>
                 </div>
               </div>
