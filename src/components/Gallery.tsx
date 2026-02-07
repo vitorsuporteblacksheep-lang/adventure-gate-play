@@ -29,6 +29,7 @@ interface GalleryItem {
 
 const memories: GalleryItem[] = [
   { id: 1, emoji: '💑', title: 'Primeira vez que saímos juntos de "casal"', date: 'Setembro 2022', mood: 'Amor', videoUrl: '/gallery/primeira-saida-casal.mp4' },
+  { id: 9, emoji: '🏠', title: 'Primeira vez que você visitou o meu quarto', date: '2022', mood: 'Intimidade', videoUrl: '/gallery/primeira-visita-quarto.mp4' },
   { 
     id: 2, 
     emoji: '🪄', 
