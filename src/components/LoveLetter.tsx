@@ -300,7 +300,7 @@ const LoveLetter = () => {
                   >
                     <div className="flex items-center gap-2">
                       <span className="font-display text-xl md:text-2xl text-wine italic">
-                        Minha gata
+                        Te amo minha gata ❤️
                       </span>
                       <Heart className="w-5 h-5 text-wine" fill="currentColor" />
                     </div>
