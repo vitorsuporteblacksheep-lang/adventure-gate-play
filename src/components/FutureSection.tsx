@@ -35,64 +35,13 @@ const FutureSection = () => {
   };
 
   const checkedCount = Object.values(checked).filter(Boolean).length;
+  const allChecked = checkedCount === futureItems.length;
 
   return (
     <div
       className="min-h-screen pt-6 px-4 bg-gradient-elegant overflow-hidden"
       style={{ paddingBottom: 'calc(7rem + env(safe-area-inset-bottom, 0px))' }}
     >
-      {/* Tribute Section */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="max-w-md mx-auto mb-10"
-      >
-        <div className="relative rounded-3xl overflow-hidden shadow-elegant border border-wine/15">
-          <div className="relative aspect-[3/4] max-h-[70vh]">
-            <img
-              src={tributePhoto}
-              alt="A mulher mais linda do Brasil"
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.5, type: 'spring', stiffness: 200 }}
-              className="absolute top-4 left-1/2 -translate-x-1/2"
-            >
-              <div className="bg-gold/20 backdrop-blur-sm rounded-full p-3 border border-gold/30">
-                <Crown className="w-6 h-6 text-gold" />
-              </div>
-            </motion.div>
-
-            <div className="absolute bottom-0 left-0 right-0 p-6 text-center">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.6 }}
-              >
-                <div className="flex items-center justify-center gap-2 mb-3">
-                  <div className="h-px w-10 bg-gradient-to-r from-transparent to-gold/60" />
-                  <Sparkles className="w-4 h-4 text-gold" />
-                  <div className="h-px w-10 bg-gradient-to-l from-transparent to-gold/60" />
-                </div>
-                <h2 className="font-display text-2xl md:text-3xl text-white leading-snug mb-2 drop-shadow-lg">
-                  Um tributo à mulher mais linda do Brasil
-                </h2>
-                <div className="flex items-center justify-center gap-2 mt-3">
-                  <div className="h-px w-10 bg-gradient-to-r from-transparent to-gold/60" />
-                  <Heart className="w-3.5 h-3.5 text-gold" fill="currentColor" />
-                  <div className="h-px w-10 bg-gradient-to-l from-transparent to-gold/60" />
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </div>
-      </motion.div>
-
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -134,7 +83,7 @@ const FutureSection = () => {
             >
               <Heart className="w-3.5 h-3.5 text-wine" fill="currentColor" />
               <span className="text-xs text-wine font-body font-medium">
-                {checkedCount} {checkedCount === 1 ? 'momento escolhido' : 'momentos escolhidos'}
+                {checkedCount}/{futureItems.length} {checkedCount === 1 ? 'momento escolhido' : 'momentos escolhidos'}
               </span>
             </motion.div>
           )}
@@ -194,6 +143,63 @@ const FutureSection = () => {
           );
         })}
       </div>
+
+      {/* Tribute - appears only when all items are checked */}
+      <AnimatePresence>
+        {allChecked && (
+          <motion.div
+            initial={{ opacity: 0, y: 40, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 40, scale: 0.9 }}
+            transition={{ duration: 0.8, type: 'spring', stiffness: 120 }}
+            className="max-w-md mx-auto mt-10"
+          >
+            <div className="relative rounded-3xl overflow-hidden shadow-elegant border border-wine/15">
+              <div className="relative aspect-[3/4] max-h-[70vh]">
+                <img
+                  src={tributePhoto}
+                  alt="A mulher mais linda do Brasil"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+
+                <motion.div
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.5, type: 'spring', stiffness: 200 }}
+                  className="absolute top-4 left-1/2 -translate-x-1/2"
+                >
+                  <div className="bg-gold/20 backdrop-blur-sm rounded-full p-3 border border-gold/30">
+                    <Crown className="w-6 h-6 text-gold" />
+                  </div>
+                </motion.div>
+
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-center">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3, duration: 0.6 }}
+                  >
+                    <div className="flex items-center justify-center gap-2 mb-3">
+                      <div className="h-px w-10 bg-gradient-to-r from-transparent to-gold/60" />
+                      <Sparkles className="w-4 h-4 text-gold" />
+                      <div className="h-px w-10 bg-gradient-to-l from-transparent to-gold/60" />
+                    </div>
+                    <h2 className="font-display text-2xl md:text-3xl text-white leading-snug mb-2 drop-shadow-lg">
+                      Um tributo à mulher mais linda do Brasil
+                    </h2>
+                    <div className="flex items-center justify-center gap-2 mt-3">
+                      <div className="h-px w-10 bg-gradient-to-r from-transparent to-gold/60" />
+                      <Heart className="w-3.5 h-3.5 text-gold" fill="currentColor" />
+                      <div className="h-px w-10 bg-gradient-to-l from-transparent to-gold/60" />
+                    </div>
+                  </motion.div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Footer */}
       <motion.div
