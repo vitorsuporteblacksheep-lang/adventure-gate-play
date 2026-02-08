@@ -33,39 +33,23 @@ const GalleryCard = ({ memory, index, onClick }: GalleryCardProps) => {
       onClick={onClick}
       className="bg-gradient-card rounded-2xl overflow-hidden shadow-elegant cursor-pointer border border-wine/10 hover:border-wine/30 transition-all group relative"
     >
-      {/* Thumbnail preview */}
-      {hasMedia && (
+      {/* Thumbnail preview - only for images */}
+      {memory.imageUrl && (
         <div className="relative w-full h-28 overflow-hidden bg-wine/5">
-          {memory.imageUrl && (
-            <>
-              {!thumbLoaded && (
-                <Skeleton className="absolute inset-0 w-full h-full rounded-none bg-wine/10" />
-              )}
-              <img
-                src={memory.imageUrl}
-                alt={memory.title}
-                loading="lazy"
-                onLoad={() => setThumbLoaded(true)}
-                className={`w-full h-full object-cover transition-opacity duration-300 ${
-                  thumbLoaded ? 'opacity-100' : 'opacity-0'
-                }`}
-              />
-            </>
+          {!thumbLoaded && (
+            <Skeleton className="absolute inset-0 w-full h-full rounded-none bg-wine/10" />
           )}
-          {memory.videoUrl && !memory.imageUrl && (
-            <div className="w-full h-full flex items-center justify-center bg-wine/10">
-              <div className="w-12 h-12 rounded-full bg-wine/20 flex items-center justify-center">
-                <Play className="w-5 h-5 text-wine ml-0.5" />
-              </div>
-            </div>
-          )}
-          {/* Overlay icon */}
+          <img
+            src={memory.imageUrl}
+            alt={memory.title}
+            loading="lazy"
+            onLoad={() => setThumbLoaded(true)}
+            className={`w-full h-full object-cover transition-opacity duration-300 ${
+              thumbLoaded ? 'opacity-100' : 'opacity-0'
+            }`}
+          />
           <div className="absolute top-2 right-2 w-7 h-7 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center">
-            {memory.videoUrl ? (
-              <Play className="w-3.5 h-3.5 text-white" />
-            ) : (
-              <Camera className="w-3.5 h-3.5 text-white" />
-            )}
+            <Camera className="w-3.5 h-3.5 text-white" />
           </div>
         </div>
       )}
@@ -73,9 +57,11 @@ const GalleryCard = ({ memory, index, onClick }: GalleryCardProps) => {
       <div className="p-4">
         <div className="flex items-start justify-between mb-2">
           <div className="text-3xl">{memory.emoji}</div>
-          {!hasMedia && (
+          {!memory.imageUrl && (
             <div className="w-8 h-8 rounded-full bg-wine/10 flex items-center justify-center group-hover:bg-wine/20 transition-colors">
-              {memory.chatMessages ? (
+              {memory.videoUrl ? (
+                <Play className="w-4 h-4 text-wine" />
+              ) : memory.chatMessages ? (
                 <MessageCircle className="w-4 h-4 text-wine" />
               ) : (
                 <ImageIcon className="w-4 h-4 text-wine" />
