@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, Sparkles } from 'lucide-react';
+import { Heart, Sparkles, Star } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
 
 const futureItems = [
@@ -33,13 +33,18 @@ const FutureSection = () => {
     setChecked((prev) => ({ ...prev, [index]: !prev[index] }));
   };
 
+  const checkedCount = Object.values(checked).filter(Boolean).length;
+
   return (
-    <div className="min-h-screen pb-28 pt-6 px-4 bg-gradient-elegant">
+    <div
+      className="min-h-screen pt-6 px-4 bg-gradient-elegant"
+      style={{ paddingBottom: 'calc(7rem + env(safe-area-inset-bottom, 0px))' }}
+    >
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-center mb-10"
+        className="text-center mb-8"
       >
         <div className="flex items-center justify-center gap-3 mb-4">
           <div className="h-px w-12 bg-gradient-to-r from-transparent to-wine" />
@@ -51,7 +56,7 @@ const FutureSection = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="font-body text-sm md:text-base text-muted-foreground italic mb-6 max-w-xs mx-auto leading-relaxed"
+          className="font-body text-sm md:text-base text-muted-foreground italic mb-5 max-w-xs mx-auto leading-relaxed"
         >
           "O futuro não é uma promessa. É uma escolha diária."
         </motion.p>
@@ -59,26 +64,43 @@ const FutureSection = () => {
         <motion.h1
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="font-display text-3xl md:text-4xl text-foreground"
+          transition={{ delay: 0.3 }}
+          className="font-display text-3xl md:text-4xl text-foreground mb-3"
         >
           Coisas que ainda vamos viver
         </motion.h1>
+
+        {/* Subtle counter */}
+        <AnimatePresence>
+          {checkedCount > 0 && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              className="inline-flex items-center gap-2 px-4 py-1.5 bg-wine/10 rounded-full border border-wine/20"
+            >
+              <Heart className="w-3.5 h-3.5 text-wine" fill="currentColor" />
+              <span className="text-xs text-wine font-body font-medium">
+                {checkedCount} {checkedCount === 1 ? 'momento escolhido' : 'momentos escolhidos'}
+              </span>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.div>
 
       {/* Checklist */}
-      <div className="max-w-md mx-auto space-y-3">
+      <div className="max-w-md mx-auto space-y-2.5">
         {futureItems.map((item, index) => {
           const isChecked = !!checked[index];
 
           return (
             <motion.div
               key={index}
-              initial={{ opacity: 0, x: -16 }}
+              initial={{ opacity: 0, x: -12 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.5 + index * 0.06 }}
+              transition={{ delay: 0.35 + index * 0.04, duration: 0.3 }}
               onClick={() => toggleItem(index)}
-              className={`flex items-start gap-4 p-4 rounded-2xl cursor-pointer transition-all duration-300 border ${
+              className={`flex items-start gap-3.5 p-3.5 rounded-2xl cursor-pointer transition-all duration-300 border active:scale-[0.98] ${
                 isChecked
                   ? 'bg-wine/10 border-wine/30 shadow-wine'
                   : 'bg-gradient-card border-wine/10 hover:border-wine/20 shadow-elegant'
@@ -93,7 +115,7 @@ const FutureSection = () => {
               </div>
 
               <span
-                className={`font-body text-sm md:text-base leading-relaxed transition-all duration-300 ${
+                className={`font-body text-sm leading-relaxed transition-all duration-300 flex-1 ${
                   isChecked
                     ? 'text-wine font-medium'
                     : 'text-foreground/80'
@@ -105,11 +127,11 @@ const FutureSection = () => {
               <AnimatePresence>
                 {isChecked && (
                   <motion.div
-                    initial={{ scale: 0, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    exit={{ scale: 0, opacity: 0 }}
+                    initial={{ scale: 0, opacity: 0, rotate: -45 }}
+                    animate={{ scale: 1, opacity: 1, rotate: 0 }}
+                    exit={{ scale: 0, opacity: 0, rotate: 45 }}
                     transition={{ type: 'spring', stiffness: 400, damping: 15 }}
-                    className="ml-auto flex-shrink-0"
+                    className="flex-shrink-0 mt-0.5"
                   >
                     <Heart className="w-4 h-4 text-wine" fill="currentColor" />
                   </motion.div>
@@ -124,9 +146,14 @@ const FutureSection = () => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.8 }}
-        className="mt-12 text-center"
+        transition={{ delay: 1.2 }}
+        className="mt-10 text-center"
       >
+        <div className="flex items-center justify-center gap-2 mb-2">
+          <div className="h-px w-8 bg-gradient-to-r from-transparent to-wine/30" />
+          <Star className="w-3.5 h-3.5 text-gold/50" fill="currentColor" />
+          <div className="h-px w-8 bg-gradient-to-l from-transparent to-wine/30" />
+        </div>
         <p className="font-body text-xs text-muted-foreground/60 italic">
           Não é uma lista para terminar. É uma promessa para continuar.
         </p>

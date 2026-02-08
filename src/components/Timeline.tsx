@@ -121,25 +121,34 @@ const Timeline = ({
     setPlayingChapterId(null);
   };
 
-  // YouTube links for each chapter's song
-  const chapterYouTubeLinks = [
-    'https://www.youtube.com/watch?v=pMSwHRwbMEo', // Céu Azul - Charlie Brown Jr
-    'https://www.youtube.com/watch?v=dQw4w9WgXcQ', // Placeholder
-    'https://www.youtube.com/watch?v=dQw4w9WgXcQ', // Placeholder
-    'https://www.youtube.com/watch?v=dQw4w9WgXcQ', // Placeholder
-    'https://www.youtube.com/watch?v=dQw4w9WgXcQ', // Placeholder
-    'https://www.youtube.com/watch?v=dQw4w9WgXcQ', // Placeholder
-  ];
+  // YouTube links mapped by chapter ID
+  const chapterYouTubeLinks: Record<string, string> = {
+    'chapter-1': 'https://www.youtube.com/watch?v=pMSwHRwbMEo',
+    'chapter-2': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    'chapter-3': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    'chapter-4': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    'chapter-5': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    'chapter-6': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    'chapter-7': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    'chapter-8': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    'chapter-9': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    'chapter-10': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    'chapter-11': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+  };
 
-  const openMusic = (index: number) => {
-    window.open(chapterYouTubeLinks[index], '_blank');
+  const openMusic = (chapterId: string) => {
+    const url = chapterYouTubeLinks[chapterId];
+    if (url) window.open(url, '_blank');
   };
 
   const playingChapter = chapters.find(ch => ch.id === playingChapterId);
   const completedCount = visibleChapters.filter(ch => ch.gameCompleted).length;
 
   return (
-    <div className="min-h-screen pb-28 pt-6 px-4 bg-gradient-elegant">
+    <div
+      className="min-h-screen pt-6 px-4 bg-gradient-elegant"
+      style={{ paddingBottom: 'calc(7rem + env(safe-area-inset-bottom, 0px))' }}
+    >
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -282,7 +291,7 @@ const Timeline = ({
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
-                        openMusic(index);
+                        openMusic(chapter.id);
                       }}
                       className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold font-body transition-all bg-wine/10 text-wine hover:bg-wine/20"
                     >

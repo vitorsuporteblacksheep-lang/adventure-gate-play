@@ -26,12 +26,12 @@ const ChapterDetail = ({ chapter, onClose }: ChapterDetailProps) => {
         animate={{ scale: 1, opacity: 1, y: 0 }}
         exit={{ scale: 0.9, opacity: 0, y: 20 }}
         onClick={(e) => e.stopPropagation()}
-        className="bg-gradient-card rounded-2xl max-w-md w-full shadow-card border border-wine/20 max-h-[90vh] overflow-hidden"
+        className="bg-gradient-card rounded-2xl max-w-md w-full shadow-card border border-wine/20 max-h-[85vh] md:max-h-[90vh] overflow-hidden"
       >
         {/* Header with photo/video or gradient */}
         <div className="relative">
           {chapter.image ? (
-            <div className="relative h-72 md:h-80 overflow-hidden">
+            <div className="relative h-56 md:h-80 overflow-hidden">
               {showVideo && chapter.videoUrl ? (
                 <video
                   src={chapter.videoUrl}
