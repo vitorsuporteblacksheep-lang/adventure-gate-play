@@ -287,12 +287,12 @@ const SecretChapterDetail = ({ chapter, onClose }: SecretChapterDetailProps) => 
         )}
 
         {/* Footer */}
-        <div className="p-4 border-t border-amber-200/10 bg-black/20">
+        <div className="p-4 pb-10 md:pb-4 border-t border-amber-200/10 bg-black/20">
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={onClose}
-            className="w-full max-w-xs mx-auto block py-3 rounded-xl font-body font-semibold flex items-center justify-center gap-2 transition-all text-sm"
+            className="w-full max-w-xs mx-auto py-3 rounded-xl font-body font-semibold flex items-center justify-center gap-2 transition-all text-sm"
             style={{
               background: 'linear-gradient(135deg, rgba(212,175,55,0.3) 0%, rgba(147,112,219,0.3) 100%)',
               border: '1px solid rgba(212,175,55,0.4)',
