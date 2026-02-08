@@ -46,10 +46,11 @@ const Navigation = ({ currentSection, onNavigate, sectionUnlocks }: NavigationPr
     <motion.nav
       initial={{ y: 100 }}
       animate={{ y: 0 }}
-      className="fixed bottom-0 left-0 right-0 glass-effect border-t border-wine/10 z-50"
+      className="fixed bottom-0 left-0 right-0 glass-effect border-t border-wine/10 z-40"
+      style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
     >
       <div className="max-w-lg mx-auto px-2 py-2">
-        <div className="flex justify-around items-center bg-gradient-card rounded-2xl p-2 shadow-elegant">
+        <div className="flex justify-around items-center bg-gradient-card rounded-2xl p-1.5 shadow-elegant">
           {navItems.map((item) => {
             const isUnlocked = sectionUnlocks[item.id];
             const isActive = currentSection === item.id;
@@ -59,7 +60,7 @@ const Navigation = ({ currentSection, onNavigate, sectionUnlocks }: NavigationPr
                 key={item.id}
                 onClick={() => isUnlocked && onNavigate(item.id)}
                 disabled={!isUnlocked}
-                className={`relative flex flex-col items-center gap-1 px-4 py-2.5 rounded-xl transition-all duration-300 font-body ${
+                className={`relative flex flex-col items-center gap-0.5 px-3 py-2 rounded-xl transition-all duration-300 font-body ${
                   isActive
                     ? 'text-primary-foreground bg-gradient-wine shadow-wine'
                     : isUnlocked
@@ -74,7 +75,7 @@ const Navigation = ({ currentSection, onNavigate, sectionUnlocks }: NavigationPr
                 >
                   {item.icon}
                 </motion.div>
-                <span className="text-[11px] font-semibold">{item.label}</span>
+                <span className="text-[10px] font-semibold">{item.label}</span>
                 
                 {!isUnlocked && (
                   <span className="absolute -top-1 -right-1 w-5 h-5 bg-muted rounded-full flex items-center justify-center border border-wine/20">

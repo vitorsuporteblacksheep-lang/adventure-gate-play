@@ -1,17 +1,19 @@
-import { useState } from 'react';
+import { useState, forwardRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Heart, Sparkles, Play, Star, Cake } from 'lucide-react';
 import UnlockGameIntro from './games/UnlockGameIntro';
 import birthdayPhoto from '@/assets/birthday-photo.png';
 import confetti from 'canvas-confetti';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface LandingPageProps {
   onStart: () => void;
 }
 
-const LandingPage = ({ onStart }: LandingPageProps) => {
+const LandingPage = forwardRef<HTMLDivElement, LandingPageProps>(({ onStart }, ref) => {
   const [showGame, setShowGame] = useState(false);
   const [gameCompleted, setGameCompleted] = useState(false);
+  const isMobile = useIsMobile();
 
   const handlePlayClick = () => {
     // Trigger celebration confetti
@@ -52,6 +54,7 @@ const LandingPage = ({ onStart }: LandingPageProps) => {
 
   return (
     <motion.div
+      ref={ref}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -67,7 +70,7 @@ const LandingPage = ({ onStart }: LandingPageProps) => {
 
       {/* Floating stars and hearts decoration */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {[...Array(20)].map((_, i) => (
+        {[...Array(isMobile ? 10 : 20)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute"
@@ -251,6 +254,8 @@ const LandingPage = ({ onStart }: LandingPageProps) => {
       </AnimatePresence>
     </motion.div>
   );
-};
+});
+
+LandingPage.displayName = 'LandingPage';
 
 export default LandingPage;

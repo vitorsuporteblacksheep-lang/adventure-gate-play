@@ -35,7 +35,10 @@ const LoveLetter = () => {
   }, []);
 
   return (
-    <div className="min-h-screen pb-28 pt-6 px-4 bg-gradient-elegant overflow-hidden">
+    <div
+      className="min-h-screen pt-6 px-4 bg-gradient-elegant overflow-hidden"
+      style={{ paddingBottom: 'calc(7rem + env(safe-area-inset-bottom, 0px))' }}
+    >
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}

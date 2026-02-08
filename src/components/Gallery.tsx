@@ -95,7 +95,10 @@ const Gallery = ({ interactions, onInteraction }: GalleryProps) => {
   };
 
   return (
-    <div className="min-h-screen pb-28 pt-6 px-4 bg-gradient-elegant">
+    <div
+      className="min-h-screen pt-6 px-4 bg-gradient-elegant"
+      style={{ paddingBottom: 'calc(7rem + env(safe-area-inset-bottom, 0px))' }}
+    >
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}

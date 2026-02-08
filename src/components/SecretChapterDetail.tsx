@@ -30,7 +30,7 @@ const SecretChapterDetail = ({ chapter, onClose }: SecretChapterDetailProps) => 
     >
       {/* Floating particles - Twilight atmosphere */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(30)].map((_, i) => (
+        {[...Array(15)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute w-1 h-1 bg-amber-200/40 rounded-full"
