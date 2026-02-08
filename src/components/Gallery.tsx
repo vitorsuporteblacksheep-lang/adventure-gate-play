@@ -64,6 +64,7 @@ const memories: GalleryItem[] = [
   { id: 21, emoji: '🌿', title: 'Nossa primeira trilha juntos', date: '2023', mood: 'Aventura', imageUrl: '/gallery/primeira-trilha.jpeg' },
   { id: 22, emoji: '🎭', title: '+1 carnaval juntos', date: '2025', mood: 'Festa', imageUrl: '/gallery/carnaval-juntos.jpeg' },
   { id: 23, emoji: '🎶', title: 'Primeiro Show do Lagum juntos', date: '2025', mood: 'Emoção', imageUrl: '/gallery/primeiro-show-lagum.jpeg' },
+  { id: 24, emoji: '🎉', title: '+1 Festa junina juntos', date: '2025', mood: 'Tradição', videoUrl: '/gallery/festa-junina-juntos.mp4' },
   { id: 3, emoji: '📸', title: 'Nosso primeiro selfie juntos', date: 'Janeiro 2023', mood: 'Felicidade' },
   { id: 4, emoji: '🌅', title: 'Pôr do sol na praia', date: 'Março 2023', mood: 'Paz' },
   { id: 5, emoji: '🎂', title: 'Seu aniversário especial', date: 'Maio 2023', mood: 'Celebração' },
