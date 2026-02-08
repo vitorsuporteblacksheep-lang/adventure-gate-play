@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Heart, Sparkles, Star, Crown } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -29,6 +29,7 @@ const futureItems = [
 
 const FutureSection = () => {
   const [checked, setChecked] = useState<Record<number, boolean>>({});
+  const tributeRef = useRef<HTMLDivElement>(null);
 
   const toggleItem = (index: number) => {
     setChecked((prev) => ({ ...prev, [index]: !prev[index] }));
@@ -36,6 +37,15 @@ const FutureSection = () => {
 
   const checkedCount = Object.values(checked).filter(Boolean).length;
   const allChecked = checkedCount === futureItems.length;
+
+  // Auto-scroll to tribute when all items are checked
+  useEffect(() => {
+    if (allChecked && tributeRef.current) {
+      setTimeout(() => {
+        tributeRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 400);
+    }
+  }, [allChecked]);
 
   return (
     <div
@@ -148,6 +158,7 @@ const FutureSection = () => {
       <AnimatePresence>
         {allChecked && (
           <motion.div
+            ref={tributeRef}
             initial={{ opacity: 0, y: 40, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 40, scale: 0.9 }}
