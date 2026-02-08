@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Heart, Feather, Sparkles, Music } from 'lucide-react';
 
-const SPOTIFY_EMBED_URL = 'https://open.spotify.com/embed/track/1WqazQHqivMkzPMBfpFa8z?utm_source=generator&theme=0';
+const SPOTIFY_EMBED_URL = 'https://open.spotify.com/embed/track/2KN4k9v9b2JT7mMFrmpQm6?utm_source=generator';
 
 // Floating heart particle component
 const FloatingHeart = ({ delay, x }: { delay: number; x: number }) => (
