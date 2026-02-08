@@ -181,7 +181,7 @@ const ChapterDetail = ({ chapter, onClose }: ChapterDetailProps) => {
         </div>
 
         {/* Footer */}
-        <div className="p-4 border-t border-wine/10 bg-muted/30">
+        <div className="px-4 pt-4 pb-6 md:pb-4 border-t border-wine/10 bg-muted/30">
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
