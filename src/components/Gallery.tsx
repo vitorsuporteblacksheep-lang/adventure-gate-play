@@ -69,6 +69,7 @@ const memories: GalleryItem[] = [
   { id: 26, emoji: '🥂', title: 'Mais um ano novo com você, meu amor', date: 'Dezembro 2025', mood: 'Amor', imageUrl: '/gallery/mais-um-ano-novo.jpeg' },
   { id: 27, emoji: '🚤', title: 'Nosso primeiro rolê de lancha', date: '2025', mood: 'Aventura', imageUrl: '/gallery/primeiro-role-lancha.jpeg' },
   { id: 28, emoji: '🌅', title: '+1 pôr do sol com você', date: '2025', mood: 'Paz', imageUrl: '/gallery/por-do-sol-com-voce.jpeg' },
+  { id: 29, emoji: '🍛', title: 'Primeira vez comendo comida Africana na chuva', date: '2025', mood: 'Diversão', imageUrl: '/gallery/comida-africana-chuva.jpeg' },
   { id: 3, emoji: '📸', title: 'Nosso primeiro selfie juntos', date: 'Janeiro 2023', mood: 'Felicidade' },
   { id: 4, emoji: '🌅', title: 'Pôr do sol na praia', date: 'Março 2023', mood: 'Paz' },
   { id: 5, emoji: '🎂', title: 'Seu aniversário especial', date: 'Maio 2023', mood: 'Celebração' },
