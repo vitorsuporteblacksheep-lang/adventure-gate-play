@@ -4,7 +4,7 @@ import LandingPage from '@/components/LandingPage';
 import Navigation from '@/components/Navigation';
 import Timeline from '@/components/Timeline';
 import Gallery from '@/components/Gallery';
-import FeelingsBox from '@/components/FeelingsBox';
+import LoveLetter from '@/components/LoveLetter';
 import FutureSection from '@/components/FutureSection';
 import { 
   loadState, 
@@ -14,7 +14,7 @@ import {
   ChapterData
 } from '@/lib/gameState';
 
-type Section = 'timeline' | 'gallery' | 'feelings' | 'future';
+type Section = 'timeline' | 'gallery' | 'letter' | 'future';
 
 const Index = () => {
   const [hasStarted, setHasStarted] = useState(false);
@@ -46,12 +46,7 @@ const Index = () => {
     setGameState(newState);
   };
 
-  const handleGalleryInteraction = () => {
-    const newState = recordInteraction(gameState);
-    setGameState(newState);
-  };
-
-  const handleFeelingsInteraction = () => {
+  const handleLetterInteraction = () => {
     const newState = recordInteraction(gameState);
     setGameState(newState);
   };
@@ -76,16 +71,11 @@ const Index = () => {
         return (
           <Gallery 
             interactions={gameState.totalInteractions} 
-            onInteraction={handleGalleryInteraction} 
+            onInteraction={handleLetterInteraction} 
           />
         );
-      case 'feelings':
-        return (
-          <FeelingsBox 
-            interactions={gameState.totalInteractions} 
-            onInteraction={handleFeelingsInteraction} 
-          />
-        );
+      case 'letter':
+        return <LoveLetter />;
       case 'future':
         return <FutureSection />;
       default:

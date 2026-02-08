@@ -30,7 +30,7 @@ export interface GameState {
   sectionUnlocks: {
     timeline: boolean;
     gallery: boolean;
-    feelings: boolean;
+    letter: boolean;
     future: boolean;
   };
   lastVisit: string;
@@ -227,7 +227,7 @@ const defaultState: GameState = {
   sectionUnlocks: {
     timeline: true,
     gallery: false,
-    feelings: false,
+    letter: false,
     future: false,
   },
   lastVisit: new Date().toISOString(),
@@ -300,7 +300,7 @@ export const completeChapterGame = (state: GameState, chapterId: string): GameSt
   
   if (allCompleted) {
     newSectionUnlocks.gallery = true;
-    newSectionUnlocks.feelings = true;
+    newSectionUnlocks.letter = true;
     newSectionUnlocks.future = true;
   }
 

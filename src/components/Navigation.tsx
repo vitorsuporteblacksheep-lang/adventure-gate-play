@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
-import { BookHeart, Images, MessageCircleHeart, Sparkles } from 'lucide-react';
+import { BookHeart, Images, Feather, Sparkles } from 'lucide-react';
 
-type Section = 'timeline' | 'gallery' | 'feelings' | 'future';
+type Section = 'timeline' | 'gallery' | 'letter' | 'future';
 
 interface NavigationProps {
   currentSection: Section;
@@ -9,7 +9,7 @@ interface NavigationProps {
   sectionUnlocks: {
     timeline: boolean;
     gallery: boolean;
-    feelings: boolean;
+    letter: boolean;
     future: boolean;
   };
 }
@@ -29,9 +29,9 @@ const Navigation = ({ currentSection, onNavigate, sectionUnlocks }: NavigationPr
       unlockMessage: 'Complete toda a história'
     },
     { 
-      id: 'feelings', 
-      label: 'Sentimentos', 
-      icon: <MessageCircleHeart className="w-5 h-5" />,
+      id: 'letter', 
+      label: 'Carta', 
+      icon: <Feather className="w-5 h-5" />,
       unlockMessage: 'Complete toda a história'
     },
     { 
